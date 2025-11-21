@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "SlashCommand(/panda-css-workflows:panda-component)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
