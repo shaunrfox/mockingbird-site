@@ -5,6 +5,8 @@ import path from "path";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // GitHub Pages deployment base path
+  base: '/mockingbird-site/',
   plugins: [
     react(),
     svgr(),

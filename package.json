@@ -8,7 +8,8 @@
     "build": "panda codegen && tsc && vite build",
     "panda": "panda codegen",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "npm run build"
   },
   "dependencies": {
     "@okshaun/components": "^0.3.3",
