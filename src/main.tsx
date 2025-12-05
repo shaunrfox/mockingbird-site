@@ -1,9 +1,18 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "@okshaun/components";
+import { ThemeProvider, useTheme } from "@okshaun/components";
 import "./index.css";
 import App from "./App.tsx";
 import sprite from "./assets/logos-sprite.svg?raw";
+
+// Force light mode on mount
+function ForceLightMode({ children }: { children: React.ReactNode }) {
+  const { setTheme } = useTheme();
+  useEffect(() => {
+    setTheme("light");
+  }, [setTheme]);
+  return <>{children}</>;
+}
 
 // Inject SVG sprite into document
 const spriteContainer = document.createElement("div");
@@ -15,7 +24,9 @@ document.body.appendChild(spriteContainer);
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
-      <App />
+      <ForceLightMode>
+        <App />
+      </ForceLightMode>
     </ThemeProvider>
   </StrictMode>
 );

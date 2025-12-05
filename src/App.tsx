@@ -7,8 +7,8 @@ import Team from './pages/Team';
 import Pledge from './pages/Pledge';
 import Contact from './pages/Contact';
 import './App.css';
-import { BreakpointIndicator } from '@okshaun/components';
-import { HStack } from '@styled-system/jsx';
+// import { BreakpointIndicator } from '@okshaun/components';
+// import { HStack } from '@styled-system/jsx';
 
 function App() {
   return (
@@ -22,10 +22,10 @@ function App() {
           <Route path='/contact' element={<Contact />} />
         </Routes>
         <Footer />
-        <HStack position='fixed' bottom='20' right='20'>
+        {/* <HStack position='fixed' bottom='20' right='20'>
           <ThemeSwitcher />
           <BreakpointIndicator />
-        </HStack>
+        </HStack> */}
       </Box>
     </BrowserRouter>
   );
