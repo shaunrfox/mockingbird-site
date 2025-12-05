@@ -4,9 +4,9 @@ import svgr from 'vite-plugin-svgr';
 import path from 'path';
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => ({
-  // Use base path for GitHub Pages in production, root path for local dev
-  base: mode === 'production' ? '/mockingbird-site/' : '/',
+export default defineConfig({
+  // Base path is '/' since we're using custom domain (mkbd.org)
+  base: '/',
   plugins: [react(), svgr()],
   resolve: {
     alias: {
@@ -18,4 +18,4 @@ export default defineConfig(({ mode }) => ({
     port: 3000,
     open: true,
   },
-}));
+});
