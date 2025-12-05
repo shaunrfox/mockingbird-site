@@ -15,23 +15,21 @@ const siteWrapperStyles = css({
     w: 'full',
     maxWidth: '5xl',
     px: '24',
-    md: {
+    mx: 'auto',
+    xs: {
       px: '32',
     },
-    lg: {
+    sm: {
       px: '48',
     },
   },
 });
 
-export const SiteWrapper: React.FC<SiteWrapperProps> = ({
-  children,
-  ...props
-}: SiteWrapperProps) => {
+export function SiteWrapper({ children, ...props }: SiteWrapperProps) {
   const [className, otherProps] = splitProps(props);
   return (
     <Box className={cx(siteWrapperStyles, className)} {...otherProps}>
       {children}
     </Box>
   );
-};
+}

@@ -10,8 +10,8 @@ type NavigationProps = {
 
 const navigationItems = [
   { path: '/', label: 'Home' },
-  { path: '/staff', label: 'Staff' },
-  { path: '/pledge', label: 'Pledge' },
+  { path: '/team', label: 'Team' },
+  // { path: '/pledge', label: 'Pledge' },
   { path: '/contact', label: 'Contact' },
 ];
 
@@ -25,20 +25,25 @@ const navStyle = css({
   position: 'fixed',
   top: '0',
   right: '0',
+  bg: 'transparent',
   zIndex: '100',
-  transition: 'all 0.3s ease-in-out',
+  transitionDuration: 'slow',
+  transitionProperty: ['background', 'colors', 'size'],
+  transitionTimingFunction: 'default',
   overflow: 'hidden',
   '&.mobile-menu-open': {
     width: 'full',
     height: 'full',
-    bg: 'surface',
+    bg: 'surface.raised',
     boxShadow: 'medium',
-    transition: 'all 0.3s ease-in-out',
+    transitionDuration: 'slow',
+    transitionProperty: ['background', 'colors', 'size'],
+    transitionTimingFunction: 'default',
   },
   xs: {
     position: 'absolute',
     top: '8',
-    right: '24',
+    right: '32',
     width: '0',
     height: '0',
     rounded: '4',
@@ -48,13 +53,16 @@ const navStyle = css({
       height: 'fit',
     },
   },
+  sm: {
+    right: '48',
+  },
   md: {
     position: 'relative',
     top: '0',
     right: '0',
     width: 'fit',
     height: 'fit',
-    bg: 'surface',
+    bg: 'transparent',
     boxShadow: 'none',
     flexDirection: 'row',
     gap: '32',
@@ -67,10 +75,18 @@ const navHeader = css({
   justifyContent: 'space-between',
   alignItems: 'center',
   width: 'full',
+  px: '24',
+  py: '4',
   '& > svg': {
     height: '32',
     my: '4',
-    mx: '16',
+  },
+  xs: {
+    px: '0',
+    py: '0',
+    '& > svg': {
+      mx: '16',
+    },
   },
   md: {
     display: 'none',

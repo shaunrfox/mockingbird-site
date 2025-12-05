@@ -1,6 +1,6 @@
 import { Box } from '@styled-system/jsx';
 import { cx, css } from '@styled-system/css';
-import { useMediaQuery } from '@okshaun/components';
+import { useMediaQuery, splitProps, type BoxProps } from '@okshaun/components';
 
 // Logo configuration for different breakpoints
 const LOGO_CONFIGS = {
@@ -23,18 +23,18 @@ const LOGO_CONFIGS = {
 
 const logoStyles = css({
   width: 'auto',
-  color: 'gray.90',
+  color: 'icon',
+  cursor: 'pointer',
   _hover: {
-    color: 'brand.60',
     animation: 'squiggle 0.3s infinite',
   },
 });
 
-interface LogoProps {
-  className?: string;
-}
+type LogoProps = BoxProps & {};
 
-export function Logo({ className }: LogoProps) {
+export function Logo({ ...props }: LogoProps) {
+  const [className, otherProps] = splitProps(props);
+
   const isSm = useMediaQuery('sm');
   const isLg = useMediaQuery('lg');
 
@@ -51,14 +51,17 @@ export function Logo({ className }: LogoProps) {
       href='/'
       className={cx(logoStyles, className)}
       height={logoConfig.height}
+      {...otherProps}
     >
-      <svg
-        height='100%'
+      <Box
+        as='svg'
+        className='logo-svg'
+        height='full'
         viewBox={logoConfig.viewBox}
         aria-label='Mockingbird Arts'
       >
         <use href={`#${logoConfig.id}`} />
-      </svg>
+      </Box>
     </Box>
   );
 }

@@ -1,5 +1,110 @@
 <svg fill="none" xmlns="http://www.w3.org/2000/svg">
 	<defs>
+		<style>
+			.top-r,
+			.bot-r,
+			.top-g,
+			.bot-g {
+				stroke: currentColor;
+			}
+
+			.top-r {
+				stroke-width: 100px;
+				animation: topani 3.5s linear infinite;
+			}
+
+			.bot-r {
+				stroke-width: 100px;
+				animation: botani 4s linear infinite;
+			}
+
+			.top-g {
+				stroke-width: 50px;
+				animation: topani 4s linear reverse infinite;
+			}
+
+			.bot-g {
+				stroke-width: 50%;
+				animation: botani 3.5s linear reverse infinite;
+			}
+
+			@keyframes topani {
+				7% {
+					stroke-width: 127px;
+				}
+				17% {
+					stroke-width: 34px;
+				}
+				19% {
+					stroke-width: 123px;
+				}
+				34% {
+					stroke-width: 105px;
+				}
+				41% {
+					stroke-width: 51px;
+				}
+				47% {
+					stroke-width: 67px;
+				}
+				61% {
+					stroke-width: 139px;
+				}
+				63% {
+					stroke-width: 52px;
+				}
+				79% {
+					stroke-width: 75px;
+				}
+				88% {
+					stroke-width: 36px;
+				}
+				98% {
+					stroke-width: 159px;
+				}
+			}
+			@keyframes botani {
+				7% {
+					stroke-width: 186px;
+				}
+				10% {
+					stroke-width: 51px;
+				}
+				18% {
+					stroke-width: 53px;
+				}
+				24% {
+					stroke-width: 198px;
+				}
+				34% {
+					stroke-width: 29px;
+				}
+				41% {
+					stroke-width: 186px;
+				}
+				54% {
+					stroke-width: 92px;
+				}
+				58% {
+					stroke-width: 194px;
+				}
+				65% {
+					stroke-width: 163px;
+				}
+				73% {
+					stroke-width: 69px;
+				}
+				80% {
+					stroke-width: 124px;
+				}
+				90% {
+					stroke-width: 41px;
+				}
+				99% {
+					stroke-width: 10px;
+				}
+			}
+		</style>
 		<filter id="squiggly-0" filterUnits="userSpaceOnUse" y="-40%" height="180%">
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="0" />
 			<feDisplacementMap id="displacement" in="SourceGraphic" in2="noise" scale="2" />
@@ -21,6 +126,9 @@
 		<filter id="squiggly-4" filterUnits="userSpaceOnUse" y="-40%" height="180%">
 			<feTurbulence id="turbulence" baseFrequency="0.02" numOctaves="3" result="noise" seed="4" />
 			<feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
+		</filter>
+		<filter id="blur" filterUnits="userSpaceOnUse" y="-40%" height="180%">
+			<feGaussianBlur in="SourceGraphic" stdDeviation="5" />
 		</filter>
 	</defs>
 	<symbol id="mockingbird-logo" viewBox="0 0 165 106">

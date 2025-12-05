@@ -1,9 +1,24 @@
 import { useEffect } from 'react';
-import { Box, Text, Heading } from '@okshaun/components';
-import { Grid } from '@styled-system/jsx';
-import { SiteWrapper } from '../components/SiteWrapper';
+import {
+  Box,
+  splitProps,
+  Divider,
+  Text,
+  type BoxProps,
+} from '@okshaun/components';
+import { css, cx } from '@styled-system/css';
+import { SiteWrapper } from './SiteWrapper';
 
-export default function Contact() {
+type FooterProps = BoxProps & {};
+
+const footerStyle = css({
+  py: '64',
+  gap: '56',
+});
+
+export function Footer({ ...props }: FooterProps) {
+  const [className, otherProps] = splitProps(props);
+
   useEffect(() => {
     const loadTally = () => {
       if (typeof window !== 'undefined') {
@@ -46,27 +61,24 @@ export default function Contact() {
   }, []);
 
   return (
-    <SiteWrapper py='64' gap='32' alignItems='start' maxWidth='3xl'>
-      <Heading as='h1'>Get in Touch</Heading>
-      <Grid gridTemplateColumns={{ base: '1fr', sm: '1fr 2fr' }} gap='40'>
-        <Text size='md' mb='4'>
-          Have questions or want to get involved? Reach out to us and let's
-          start a conversation.
-        </Text>
-        <Box>
-          <iframe
-            data-tally-src='https://tally.so/embed/ODQbWM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1'
-            loading='lazy'
-            width='100%'
-            height='276'
-            frameBorder='0'
-            marginHeight='0'
-            marginWidth='0'
-            title='Contact form
-'
-          ></iframe>
-        </Box>
-      </Grid>
+    <SiteWrapper className={cx(footerStyle, className)} {...otherProps}>
+      <Divider w='full' maxWidth='lg' />
+      <Box as='svg' viewBox='0 0 39 32' color='bg.neutral.bold' width='40'>
+        <use href='#mkbd-sm-bird' />
+      </Box>
+      <Box maxWidth='sm'>
+        <Text textStyle='mono.lg'>Newsletter sign-up</Text>
+        <iframe
+          data-tally-src='https://tally.so/embed/2Ejl2b?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1'
+          loading='lazy'
+          width='100%'
+          height='168'
+          frameborder='0'
+          marginheight='0'
+          marginwidth='0'
+          title='Newsletter sign-up'
+        ></iframe>
+      </Box>
     </SiteWrapper>
   );
 }
