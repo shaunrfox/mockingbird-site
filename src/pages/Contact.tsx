@@ -1,50 +1,9 @@
-import { useEffect } from 'react';
 import { Box, Text, Heading } from '@okshaun/components';
 import { Grid } from '@styled-system/jsx';
 import { SiteWrapper } from '../components/SiteWrapper';
+import { ContactForm } from '../components/forms';
 
 export default function Contact() {
-  useEffect(() => {
-    const loadTally = () => {
-      if (typeof window !== 'undefined') {
-        const Tally = (
-          window as Window & { Tally?: { loadEmbeds: () => void } }
-        ).Tally;
-        if (Tally) {
-          Tally.loadEmbeds();
-        } else {
-          document
-            .querySelectorAll<HTMLIFrameElement>(
-              'iframe[data-tally-src]:not([src])'
-            )
-            .forEach((iframe) => {
-              if (iframe.dataset.tallySrc) {
-                iframe.src = iframe.dataset.tallySrc;
-              }
-            });
-        }
-      }
-    };
-
-    const scriptUrl = 'https://tally.so/widgets/embed.js';
-
-    if (typeof window !== 'undefined') {
-      const Tally = (window as Window & { Tally?: { loadEmbeds: () => void } })
-        .Tally;
-      if (Tally) {
-        loadTally();
-      } else if (
-        document.querySelector(`script[src="${scriptUrl}"]`) === null
-      ) {
-        const script = document.createElement('script');
-        script.src = scriptUrl;
-        script.onload = loadTally;
-        script.onerror = loadTally;
-        document.body.appendChild(script);
-      }
-    }
-  }, []);
-
   return (
     <SiteWrapper py='64' gap='32' alignItems='start' maxWidth='3xl'>
       <Heading as='h1'>Get in Touch</Heading>
@@ -54,17 +13,7 @@ export default function Contact() {
           start a conversation.
         </Text>
         <Box>
-          <iframe
-            data-tally-src='https://tally.so/embed/ODQbWM?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1'
-            loading='lazy'
-            width='100%'
-            height='276'
-            frameBorder='0'
-            marginHeight='0'
-            marginWidth='0'
-            title='Contact form
-'
-          ></iframe>
+          <ContactForm />
         </Box>
       </Grid>
     </SiteWrapper>

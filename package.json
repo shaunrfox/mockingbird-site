@@ -12,10 +12,12 @@
     "deploy": "npm run build"
   },
   "dependencies": {
-    "@okshaun/components": "^0.3.4",
+    "@marsidev/react-turnstile": "^1.4.0",
+    "@okshaun/components": "^0.4.3",
     "@pandacss/dev": "^1.5.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-hook-form": "^7.68.0",
     "react-router-dom": "^7.9.6"
   },
   "devDependencies": {

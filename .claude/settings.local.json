@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "SlashCommand(/panda-css-workflows:panda-component)"
+      "SlashCommand(/panda-css-workflows:panda-component)",
+      "WebFetch(domain:resend.com)"
     ],
     "deny": [],
     "ask": []
