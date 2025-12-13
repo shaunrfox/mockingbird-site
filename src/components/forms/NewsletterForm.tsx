@@ -78,19 +78,14 @@ export function NewsletterForm() {
 
   if (status === 'success') {
     return (
-      <Box>
+      <VStack gap='12'>
         <Text size='md' color='fg.success'>
           Check your email to confirm your subscription!
         </Text>
-        <Button
-          variant='ghost'
-          size='sm'
-          mt='8'
-          onClick={() => setStatus('idle')}
-        >
+        <Button appearance='hollow' onClick={() => setStatus('idle')}>
           Subscribe another email
         </Button>
-      </Box>
+      </VStack>
     );
   }
 

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "panda codegen --watch & vite",
-    "build": "panda codegen && tsc && vite build",
+    "build": "panda codegen && tsc && vite build && cp dist/index.html dist/404.html",
     "panda": "panda codegen",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.4.0",
-    "@okshaun/components": "^0.4.3",
+    "@okshaun/components": "^0.4.4",
     "@pandacss/dev": "^1.5.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
