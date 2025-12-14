@@ -1,5 +1,4 @@
 import {
-  Box,
   splitProps,
   Divider,
   type BoxProps,
@@ -8,6 +7,7 @@ import {
 import { css, cx } from '@styled-system/css';
 import { Flex } from '@styled-system/jsx';
 import { SiteWrapper } from './SiteWrapper';
+import { Logo } from './Logo';
 import { NewsletterForm } from './forms';
 
 type FooterProps = BoxProps & {};
@@ -34,9 +34,7 @@ export function Footer({ ...props }: FooterProps) {
         <NewsletterForm />
         <Flex flexDir='column' alignItems='center'>
           <ThemeSwitcher />
-          <Box as='svg' viewBox='0 0 39 32' color='bg.neutral.bold' width='40'>
-            <use href='#mkbd-sm-bird' />
-          </Box>
+          <Logo variant='mkbd-sm-bird' width='40' color='bg.neutral.bold' />
         </Flex>
       </Flex>
     </SiteWrapper>

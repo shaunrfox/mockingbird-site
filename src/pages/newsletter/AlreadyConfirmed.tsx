@@ -1,7 +1,8 @@
-import { Box, Text, Heading, Button } from '@okshaun/components';
+import { Text, Heading, Button } from '@okshaun/components';
 import { Link } from 'react-router-dom';
 import { Flex } from '@styled-system/jsx';
 import { SiteWrapper } from '../../components/SiteWrapper';
+import { Logo } from '../../components/Logo';
 import confetti from 'canvas-confetti';
 
 const prefersReducedMotion = window.matchMedia(
@@ -40,15 +41,11 @@ export default function NewsletterAlreadyConfirmed() {
       height='100vh'
       width='100vw'
     >
-      <Box
-        as='svg'
-        viewBox='0 0 194 32'
-        color='bg.neutral.bold'
+      <Logo
+        variant='mockingbird-arts-logotype'
         width='300'
-        aria-hidden='true'
-      >
-        <use href='#mockingbird-arts-logotype' />
-      </Box>
+        color='bg.neutral.bold'
+      />
       <Flex
         flexDir='column'
         gap='16'

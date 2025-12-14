@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { Box, IconButton } from '@okshaun/components';
 import { NavLink } from './NavLink';
+import { Logo } from '../Logo';
 import { css, cx } from '@styled-system/css';
 
 type NavigationProps = {
@@ -27,18 +28,20 @@ const navStyle = css({
   right: '0',
   bg: 'transparent',
   zIndex: '100',
-  transitionDuration: 'slow',
-  transitionProperty: ['background', 'colors', 'size'],
-  transitionTimingFunction: 'default',
+  transition: ['background', 'colors', 'size'],
+  // transitionDuration: 'slow',
+  // transitionProperty: ['background', 'colors', 'size'],
+  // transitionTimingFunction: 'default',
   overflow: 'hidden',
   '&.mobile-menu-open': {
     width: 'full',
     height: 'full',
     bg: 'surface.raised',
     boxShadow: 'medium',
-    transitionDuration: 'slow',
-    transitionProperty: ['background', 'colors', 'size'],
-    transitionTimingFunction: 'default',
+    transition: ['background', 'colors', 'size'],
+    // transitionDuration: 'slow',
+    // transitionProperty: ['background', 'colors', 'size'],
+    // transitionTimingFunction: 'default',
   },
   xs: {
     position: 'absolute',
@@ -106,9 +109,7 @@ export function Navigation({
       className={cx(navStyle, mobileMenuOpen && 'mobile-menu-open')}
     >
       <Box className={navHeader}>
-        <Box as='svg' viewBox='0 0 39 32' color='bg.neutral.pressed'>
-          <use href='#mkbd-sm-bird' />
-        </Box>
+        <Logo variant='mkbd-sm-bird' color='bg.neutral.pressed' />
         <IconButton
           iconName='x'
           appearance='subtle'

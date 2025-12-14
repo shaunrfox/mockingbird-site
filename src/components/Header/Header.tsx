@@ -7,7 +7,8 @@ import {
   type BoxProps,
 } from '@okshaun/components';
 import { css, cx } from '@styled-system/css';
-import { Logo } from './Logo';
+import { Link } from 'react-router-dom';
+import { Logo } from '../Logo';
 import { SiteWrapper } from '../SiteWrapper';
 import { Navigation } from './Navigation';
 
@@ -26,14 +27,31 @@ type HeaderProps = BoxProps & {
   // children: React.ReactNode;
 };
 
+const logoLinkStyles = css({
+  cursor: 'pointer',
+  _hover: {
+    animation: 'squiggle 0.3s infinite',
+  },
+});
+
 export function Header({ ...props }: HeaderProps) {
   const [className, otherProps] = splitProps(props);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isMd = useMediaQuery('md', 'max');
-  // const isLg = useMediaQuery("lg");
-  // const isXl = useMediaQuery("xl");
+  const isSm = useMediaQuery('sm');
+  const isLg = useMediaQuery('lg');
+
+  const renderLogo = () => {
+    if (isLg) {
+      return <Logo variant='mockingbird-logo' height={160} />;
+    }
+    if (isSm) {
+      return <Logo variant='mockingbird-arts-logotype' height={32} />;
+    }
+    return <Logo variant='mkbd-arts-logotype' height={32} />;
+  };
 
   return (
     <Box as='header' className={cx(headerStyle, className)} {...otherProps}>
@@ -43,7 +61,9 @@ export function Header({ ...props }: HeaderProps) {
         pb='8'
         pt={{ base: '8', lg: '64' }}
       >
-        <Logo />
+        <Link to='/' className={logoLinkStyles}>
+          {renderLogo()}
+        </Link>
         {isMd && (
           <IconButton
             iconName='menu'

@@ -1,6 +1,7 @@
-import { Box, Text, Heading, Button } from '@okshaun/components';
+import { Text, Heading, Button } from '@okshaun/components';
 import { Link } from 'react-router-dom';
 import { SiteWrapper } from '../../components/SiteWrapper';
+import { Logo } from '../../components/Logo';
 import { Flex } from '@styled-system/jsx';
 import confetti from 'canvas-confetti';
 
@@ -40,15 +41,11 @@ export default function NewsletterConfirmed() {
       height='100vh'
       width='100vw'
     >
-      <Box
-        as='svg'
-        viewBox='0 0 194 32'
-        color='bg.neutral.bold'
+      <Logo
+        variant='mockingbird-arts-logotype'
         width='300'
-        aria-hidden='true'
-      >
-        <use href='#mockingbird-arts-logotype' />
-      </Box>
+        color='bg.neutral.bold'
+      />
       <Flex
         flexDir='column'
         gap='16'
