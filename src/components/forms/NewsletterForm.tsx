@@ -79,9 +79,7 @@ export function NewsletterForm() {
   if (status === 'success') {
     return (
       <VStack gap='12'>
-        <Text size='md' color='fg.success'>
-          Check your email to confirm your subscription!
-        </Text>
+        <Text color='text'>Check your email to confirm your subscription!</Text>
         <Button appearance='hollow' onClick={() => setStatus('idle')}>
           Subscribe another email
         </Button>
@@ -90,7 +88,11 @@ export function NewsletterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <Box
+      as='form'
+      onSubmit={handleSubmit(onSubmit)}
+      width={{ base: 'full', xs: 'fit' }}
+    >
       <VStack gap='4' alignItems='stretch'>
         {/* Honeypot field - hidden from humans, bots will fill it */}
         <div className={hiddenStyle} aria-hidden='true'>
@@ -104,15 +106,27 @@ export function NewsletterForm() {
           />
         </div>
 
-        <HStack gap='8' alignItems='end' flexWrap='wrap'>
-          <Flex flexDir='column' gap='4' minWidth='xs'>
-            <Label for='nl-email' textStyle='mono.md'>
+        <Flex
+          flexDir={{ base: 'column', xs: 'row' }}
+          width={{ base: 'full', xs: 'fit' }}
+          gap='8'
+          alignItems='end'
+          flexWrap='wrap'
+        >
+          <Flex
+            flexDir='column'
+            gap='4'
+            width={{ base: 'full', xs: 'fit' }}
+            minWidth='2xs'
+          >
+            <Label htmlFor='nl-email' textStyle='mono.md'>
               Newsletter sign-up
             </Label>
             <TextInput
               id='nl-email'
               type='email'
               placeholder='your@email.com'
+              size='large'
               error={!!errors.email}
               {...register('email', {
                 required: 'Email is required',
@@ -126,11 +140,14 @@ export function NewsletterForm() {
           <Button
             type='submit'
             appearance='primary'
+            size='large'
+            width={{ base: 'full', xs: 'fit' }}
+            justifyContent='center'
             disabled={status === 'submitting'}
           >
             {status === 'submitting' ? 'Subscribing...' : 'Subscribe'}
           </Button>
-        </HStack>
+        </Flex>
 
         {errors.email && (
           <Text size='14' color='text.danger'>
@@ -156,6 +173,6 @@ export function NewsletterForm() {
           </Text>
         )}
       </VStack>
-    </form>
+    </Box>
   );
 }

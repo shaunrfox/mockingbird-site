@@ -15,6 +15,7 @@
     "@marsidev/react-turnstile": "^1.4.0",
     "@okshaun/components": "^0.4.4",
     "@pandacss/dev": "^1.5.1",
+    "canvas-confetti": "^1.9.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.68.0",

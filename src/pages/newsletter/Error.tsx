@@ -1,5 +1,6 @@
 import { Box, Text, Heading, Button } from '@okshaun/components';
 import { Link, useSearchParams } from 'react-router-dom';
+import { Flex } from '@styled-system/jsx';
 import { SiteWrapper } from '../../components/SiteWrapper';
 
 const ERROR_MESSAGES: Record<string, { title: string; message: string }> = {
@@ -21,7 +22,8 @@ const ERROR_MESSAGES: Record<string, { title: string; message: string }> = {
 
 const DEFAULT_ERROR = {
   title: 'Something Went Wrong',
-  message: 'There was a problem confirming your subscription. Please try again.',
+  message:
+    'There was a problem confirming your subscription. Please try again.',
 };
 
 export default function NewsletterError() {
@@ -30,24 +32,54 @@ export default function NewsletterError() {
   const { title, message } = ERROR_MESSAGES[reason] || DEFAULT_ERROR;
 
   return (
-    <SiteWrapper py='64' gap='24' alignItems='center' maxWidth='lg'>
+    <SiteWrapper
+      py='64'
+      gap='40'
+      alignItems='center'
+      justifyContent='center'
+      maxWidth='xl'
+      height='100vh'
+      width='100vw'
+    >
       <Box
         as='svg'
-        viewBox='0 0 39 32'
-        color='fg.danger'
-        width='64'
+        viewBox='0 0 194 32'
+        color='bg.neutral.bold'
+        width='300'
         aria-hidden='true'
       >
-        <use href='#mkbd-sm-bird' />
+        <use href='#mockingbird-arts-logotype' />
       </Box>
-      <Heading as='h1' textAlign='center'>
-        {title}
-      </Heading>
-      <Text size='lg' textAlign='center' color='fg.muted'>
-        {message}
-      </Text>
-      <Button as={Link} to='/' variant='hollow' mt='8'>
-        Back to Home
+      <Flex
+        flexDir='column'
+        gap='16'
+        alignItems='center'
+        px='32'
+        pb='32'
+        pt='24'
+        bg='bg.danger'
+        rounded='16'
+      >
+        <Flex flexDir='column' alignItems='center'>
+          <Text fontSize='32' textAlign='center'>
+            🙁
+          </Text>
+          <Heading as='h1' textAlign='center' color='text.danger'>
+            {title}
+          </Heading>
+        </Flex>
+        <Text textStyle='body.lg' textAlign='center' color='text.danger/70'>
+          {message}
+        </Text>
+      </Flex>
+      <Button
+        as={Link}
+        to='/'
+        size='large'
+        appearance='primary'
+        iconAfter='finish'
+      >
+        Back to the site
       </Button>
     </SiteWrapper>
   );

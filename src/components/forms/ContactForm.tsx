@@ -8,6 +8,7 @@ import {
   Textarea,
   Label,
   Text,
+  Icon,
 } from '@okshaun/components';
 import { VStack, Flex } from '@styled-system/jsx';
 import { css } from '@styled-system/css';
@@ -87,17 +88,31 @@ export function ContactForm() {
 
   if (status === 'success') {
     return (
-      <Box p='24' bg='bg.success' borderRadius='8'>
-        <Text size='24' fontWeight='medium' color='text.success'>
-          Thanks for reaching out!
-        </Text>
-        <Text size='16' color='text.success' mt='8'>
-          We've received your message and will get back to you soon.
-        </Text>
-        <Button variant='hollow' mt='16' onClick={() => setStatus('idle')}>
+      <Flex flexDir='column' gap='24' p='32' border='subtle' borderRadius='8'>
+        <VStack alignItems='start'>
+          <Text fontSize='24' fontWeight='medium' color='text'>
+            <Icon
+              name='circle-check'
+              mr='4'
+              mb='-8'
+              size='32'
+              color='icon.success'
+            />
+            Thanks for reaching out!
+          </Text>
+          <Text color='text.subtlest' lineHeight='tight'>
+            We've received your message and will get back to you soon.
+          </Text>
+        </VStack>
+        <Button
+          size='large'
+          iconAfter='jump-back'
+          width='fit'
+          onClick={() => setStatus('idle')}
+        >
           Send another message
         </Button>
-      </Box>
+      </Flex>
     );
   }
 
@@ -129,6 +144,7 @@ export function ContactForm() {
           <TextInput
             id='name'
             placeholder='Your name'
+            size='large'
             error={!!errors.name}
             {...register('name', { required: 'Name is required' })}
           />
@@ -153,6 +169,7 @@ export function ContactForm() {
             id='email'
             type='email'
             placeholder='your@email.com'
+            size='large'
             error={!!errors.email}
             {...register('email', {
               required: 'Email is required',
@@ -181,7 +198,8 @@ export function ContactForm() {
           </Label>
           <Textarea
             id='message'
-            placeholder='How can we help?'
+            placeholder='What’s on your mind?'
+            size='large'
             rows={4}
             error={!!errors.message}
             {...register('message', { required: 'Message is required' })}
@@ -196,6 +214,7 @@ export function ContactForm() {
         <Button
           type='submit'
           appearance='primary'
+          size='large'
           disabled={status === 'submitting'}
         >
           {status === 'submitting' ? 'Sending...' : 'Send Message'}
