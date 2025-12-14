@@ -40,4 +40,13 @@ export default defineConfig({
   globalCss: {
     ...globalCss,
   },
+  hooks: {
+    'preset:resolved': ({ utils, preset, name }) => {
+      if (name === '@pandacss/preset-base') {
+        // Exclude specific patterns by name
+        return utils.omit(preset, ['patterns.box', 'patterns.divider']);
+      }
+      return preset;
+    },
+  },
 });

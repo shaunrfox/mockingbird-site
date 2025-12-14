@@ -77,7 +77,7 @@ export default function Home() {
         </SiteWrapper>
       </Box>
       <SiteWrapper gap='16' py='96'>
-        <VStack maxWidth='3xl' alignItems='left' gap='16'>
+        <VStack maxWidth='4xl' alignItems='left' gap='16'>
           <Heading
             textStyle='body.md'
             fontFamily='sans'

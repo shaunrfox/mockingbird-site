@@ -1,4 +1,4 @@
-import { Box, Text, Heading, Button } from '@okshaun/components';
+import { Text, Heading, Button } from '@okshaun/components';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Flex } from '@styled-system/jsx';
 import { SiteWrapper } from '../../components/SiteWrapper';

@@ -1,6 +1,5 @@
-import { Box } from '@styled-system/jsx';
 import { css } from '@styled-system/css';
-import { type BoxProps } from '@okshaun/components';
+import { Box, type BoxProps } from '@okshaun/components';
 
 const LOGO_CONFIGS = {
   'mockingbird-logo': {

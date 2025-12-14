@@ -29,9 +29,6 @@ const navStyle = css({
   bg: 'transparent',
   zIndex: '100',
   transition: ['background', 'colors', 'size'],
-  // transitionDuration: 'slow',
-  // transitionProperty: ['background', 'colors', 'size'],
-  // transitionTimingFunction: 'default',
   overflow: 'hidden',
   '&.mobile-menu-open': {
     width: 'full',
@@ -39,9 +36,6 @@ const navStyle = css({
     bg: 'surface.raised',
     boxShadow: 'medium',
     transition: ['background', 'colors', 'size'],
-    // transitionDuration: 'slow',
-    // transitionProperty: ['background', 'colors', 'size'],
-    // transitionTimingFunction: 'default',
   },
   xs: {
     position: 'absolute',

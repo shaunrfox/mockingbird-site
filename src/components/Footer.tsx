@@ -3,6 +3,7 @@ import {
   Divider,
   type BoxProps,
   ThemeSwitcher,
+  // BreakpointIndicator,
 } from '@okshaun/components';
 import { css, cx } from '@styled-system/css';
 import { Flex } from '@styled-system/jsx';
@@ -37,6 +38,9 @@ export function Footer({ ...props }: FooterProps) {
           <Logo variant='mkbd-sm-bird' width='40' color='bg.neutral.bold' />
         </Flex>
       </Flex>
+      {/* <Flex position='fixed' right='20' bottom='20'>
+        <BreakpointIndicator />
+      </Flex> */}
     </SiteWrapper>
   );
 }
