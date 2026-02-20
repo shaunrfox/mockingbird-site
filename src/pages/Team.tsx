@@ -1,4 +1,10 @@
-import { Box, Text, Heading, Divider } from "@okshaun/components";
+import {
+  Box,
+  Text,
+  Heading,
+  Divider,
+  useMediaQuery,
+} from "@okshaun/components";
 import { Grid, Flex, VStack } from "@styled-system/jsx";
 import { SiteWrapper } from "../components/SiteWrapper";
 import { css } from "@styled-system/css";
@@ -36,6 +42,7 @@ const eyebrow = css({
 });
 
 export default function Team() {
+  const isDesktop = useMediaQuery("md");
   return (
     <VStack gap="64">
       <SiteWrapper py="64" gap="64" alignItems="start" maxWidth="4xl">
@@ -45,6 +52,7 @@ export default function Team() {
           gap="48"
           alignItems="center"
           justifyItems="center"
+          mb="48"
         >
           <Flex flexDir="column" gap="8">
             <Heading className={eyebrow}>Executive Director</Heading>
@@ -52,11 +60,15 @@ export default function Team() {
               Katie Fox
             </Text>
             <Text textStyle="body.lg">
-              Qui aliqua elit do exercitation voluptate mollit culpa ipsum dolor
-              et nisi fugiat mollit excepteur aute. Consequat tempor duis do ut
-              quis laborum nulla. Nostrud exercitation mollit culpa qui ullamco
-              magna dolor culpa adipisicing sint exercitation non exercitation
-              amet.
+              Katie Fox serves as the Executive Director of Mockingbird Arts.
+              She has been involved in the arts throughout her entire life, most
+              recently as leader of the Faith+Arts ministry at Christ Church
+              Austin since 2015. Katie&rsquo;s undergraduate degree is in music,
+              and she has a Master's degree from Fuller Seminary, with a focus
+              in theology and the arts. Her background also includes study
+              and/or experience in writing, theater, and art history. Katie is
+              passionate about equipping artists, and believes that beauty will
+              save the world.
             </Text>
           </Flex>
           <Box className={imageWrapper}>
@@ -75,6 +87,7 @@ export default function Team() {
           gap="48"
           alignItems="center"
           justifyItems="center"
+          mb="48"
         >
           <Box className={imageWrapper}>
             <Box
@@ -91,10 +104,12 @@ export default function Team() {
               Shaun Fox
             </Text>
             <Text textStyle="body.lg">
-              Shaun Fox serves as the Associate Director of Mockingbird Arts. He
-              is a woodworker and photographer with a background in design and
-              technology, and a long-standing interest in craft across many
-              mediums. His work focuses on building thoughtful structures that
+              Shaun Fox serves as the Associate Director of Mockingbird Arts.
+              With a BFA in Communication Design from Texas State University and
+              nearly twenty years in design and technology, he brings both
+              strategic insight and hands-on experience to his work. He is also
+              a woodworker and photographer, driven by an enduring curiosity for
+              craft and a commitment to building thoughtful structures that
               support artists and creative practice.
             </Text>
           </Flex>
@@ -113,23 +128,24 @@ export default function Team() {
               <Text className={eyebrow}>Board Chair</Text>
               <Text textStyle="heading.sm">Kevin Lloyd</Text>
             </Flex>
-            <Flex flexDir="column">
+            {/*<Flex flexDir="column">
               <Text className={eyebrow}>Vice Chair</Text>
               <Text textStyle="heading.sm">—</Text>
-            </Flex>
+            </Flex>*/}
             <Flex flexDir="column">
               <Text className={eyebrow}>Secretary</Text>
-              <Text textStyle="heading.sm">—</Text>
+              <Text textStyle="heading.sm">Akiko Scott</Text>
             </Flex>
             <Flex flexDir="column">
               <Text className={eyebrow}>Treasurer</Text>
               <Text textStyle="heading.sm">—</Text>
             </Flex>
           </Grid>
-          <Divider direction={{ base: "horizontal", md: "vertical" }} />
+          <Divider direction={isDesktop ? "vertical" : "horizontal"} />
           <Flex flexDir="column">
             <Text className={eyebrow}>Additional Members</Text>
-            <Text textStyle="heading.sm">—</Text>
+            <Text textStyle="heading.sm">Camille Sales</Text>
+            <Text textStyle="heading.sm">Bryson Owen</Text>
           </Flex>
         </Grid>
       </SiteWrapper>
