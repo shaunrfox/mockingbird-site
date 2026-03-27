@@ -146,6 +146,8 @@ export default function Team() {
             <Text className={eyebrow}>Additional Members</Text>
             <Text textStyle="heading.sm">Camille Sales</Text>
             <Text textStyle="heading.sm">Bryson Owen</Text>
+            <Text textStyle="heading.sm">Phaedra Taylor</Text>
+            <Text textStyle="heading.sm">W. David O. Taylor</Text>
           </Flex>
         </Grid>
       </SiteWrapper>
