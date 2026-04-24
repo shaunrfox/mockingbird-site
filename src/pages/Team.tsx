@@ -120,10 +120,10 @@ export default function Team() {
         <Heading>Board of Directors</Heading>
         <Grid
           gap="32"
-          gridTemplateColumns={{ base: "1fr", md: "1fr auto 1fr" }}
+          gridTemplateColumns={{ base: "1fr", md: "auto auto 1fr" }}
           // gridAutoRows='120px auto auto'
         >
-          <Grid columnGap="48" rowGap="32" gridTemplateColumns="1fr 1fr">
+          <Flex flexDir="column" gap="16">
             <Flex flexDir="column">
               <Text className={eyebrow}>Board Chair</Text>
               <Text textStyle="heading.sm">Kevin Lloyd</Text>
@@ -138,11 +138,11 @@ export default function Team() {
             </Flex>
             <Flex flexDir="column">
               <Text className={eyebrow}>Treasurer</Text>
-              <Text textStyle="heading.sm">—</Text>
+              <Text textStyle="heading.sm">Tim Diller</Text>
             </Flex>
-          </Grid>
+          </Flex>
           <Divider direction={isDesktop ? "vertical" : "horizontal"} />
-          <Flex flexDir="column">
+          <Flex flexDir="column" gap="4">
             <Text className={eyebrow}>Additional Members</Text>
             <Text textStyle="heading.sm">Camille Sales</Text>
             <Text textStyle="heading.sm">Bryson Owen</Text>
