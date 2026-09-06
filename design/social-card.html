@@ -1,0 +1,55 @@
+<!--
+  Source for public/og-card.png (1200x630 social preview).
+
+  Regenerate after editing:
+    "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+      --headless --disable-gpu --hide-scrollbars --allow-file-access-from-files \
+      --virtual-time-budget=6000 --window-size=1200,630 \
+      --screenshot=public/og-card.png design/social-card.html
+
+  The logo is referenced by absolute file:// path so Chrome can read it in
+  headless mode. Fonts come from Typekit, so rendering needs network.
+-->
+<html>
+<head>
+<link rel="stylesheet" href="https://use.typekit.net/gsh7kwc.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; }
+  body {
+    background:#F8F8F8;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+  }
+  /* The card ground is near-white, so it would dissolve into a white feed
+     without an edge. */
+  .edge { position:absolute; left:0; right:0; height:9px; background:#3B3D42; }
+  .edge.top { top:0; }
+  .edge.bottom { bottom:0; }
+
+  .logo { width:440px; display:block; }
+  .rule { width:88px; height:3px; background:#3B3D42; margin:44px 0 34px; }
+  .sep { opacity:.34; padding:0 15px; font-size:1.25em; line-height:0; vertical-align:.06em; }
+  .tag {
+    font-family:'auto-pro-new','auto-pro-1-new',Geneva,Tahoma,sans-serif;
+    font-size:29px; font-weight:500; letter-spacing:.004em;
+    color:#3B3D42; text-align:center; line-height:1.38;
+    white-space:nowrap;
+  }
+  .domain {
+    margin-top:44px;
+    font-family:'covik-sans-mono','Andale Mono',monospace;
+    font-size:18px; letter-spacing:.22em; text-transform:uppercase;
+    color:#3B3D42; opacity:.5;
+  }
+</style>
+</head>
+<body>
+  <div class="edge top"></div>
+  <img class="logo" src="file:///Users/shaunfox/Documents/bigfootcode/mockingbird-site/src/assets/logos/mockingbird-logo.svg">
+  <div class="rule"></div>
+  <div class="tag">Artists in community<span class="sep">&bull;</span>Engaging the city<span class="sep">&bull;</span>Enriching the culture</div>
+  <div class="domain">mkbd.org</div>
+  <div class="edge bottom"></div>
+</body>
+</html>
