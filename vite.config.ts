@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { reactRouter } from '@react-router/dev/vite';
 import svgr from 'vite-plugin-svgr';
 import path from 'path';
 
@@ -7,7 +7,7 @@ import path from 'path';
 export default defineConfig({
   // Base path is '/' since we're using custom domain (mkbd.org)
   base: '/',
-  plugins: [react(), svgr()],
+  plugins: [reactRouter(), svgr()],
   resolve: {
     alias: {
       '~/': path.resolve(__dirname, './src/'),

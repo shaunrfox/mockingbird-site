@@ -5,9 +5,9 @@ import { Logo } from '../../components/Logo';
 import { Flex } from '@styled-system/jsx';
 import confetti from 'canvas-confetti';
 
-const prefersReducedMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches;
+const prefersReducedMotion =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function fireConfetti() {
   const count = 200;
