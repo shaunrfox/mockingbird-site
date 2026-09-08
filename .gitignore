@@ -27,3 +27,5 @@ build
 ## Panda
 styled-system
 styled-system-studio
+## React Router generated types
+.react-router
