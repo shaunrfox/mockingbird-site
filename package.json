@@ -4,17 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "panda codegen --watch & vite",
-    "build": "panda codegen && tsc && vite build && cp dist/index.html dist/404.html",
+    "dev": "panda codegen --watch & react-router dev",
+    "build": "panda codegen && react-router build && cp build/client/__spa-fallback.html build/client/404.html",
     "panda": "panda codegen",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy": "npm run build"
+    "preview": "npx --yes serve build/client",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "^1.4.0",
-    "@okshaun/components": "^1.0.1",
+    "@okshaun/components": "^3.0.0",
     "@pandacss/dev": "^1.5.1",
+    "@portabletext/react": "^8.0.1",
     "@react-router/node": "^7.18.3",
     "@sanity/client": "^8.5.0",
     "canvas-confetti": "^1.9.4",
@@ -40,6 +41,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2",
-    "vite-plugin-svgr": "^4.5.0"
+    "vite-plugin-svgr": "^4.5.0",
+    "wrangler": "^4.129.0"
   }
 }

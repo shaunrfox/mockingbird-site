@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mockingbird-site",
+  "compatibility_date": "2026-09-01",
+
+  // No `main` — this is a static-assets-only Worker. Every page in
+  // build/client was already rendered to HTML at build time by
+  // react-router's prerender pass, so there is nothing to run per request.
+  "assets": {
+    "directory": "./build/client",
+
+    // Every internal link in the app is slash-less (/programs/maker-mondays),
+    // so the default auto-trailing-slash would 307 on every first page load.
+    // Serve the slash-less form directly and redirect the other way instead.
+    "html_handling": "drop-trailing-slash",
+
+    // The build copies __spa-fallback.html to 404.html. An unknown URL then
+    // gets a real 404 status AND the app shell, so React Router can render
+    // its own not-found page instead of a bare Cloudflare error.
+    "not_found_handling": "404-page"
+  }
+}
