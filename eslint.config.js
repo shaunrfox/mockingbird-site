@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'build', 'styled-system', '.react-router']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -19,5 +19,12 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+  },
+  {
+    // React Router framework mode requires a route file to export `loader`
+    // and `meta` alongside its component. Fast refresh gives that up; the
+    // rule is asking for something the framework does not allow.
+    files: ['app/routes.ts', 'app/root.tsx', 'app/routes/**/*.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
   },
 ])

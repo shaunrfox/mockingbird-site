@@ -1,20 +1,34 @@
-import { useLocation } from 'react-router-dom';
-import { Box, IconButton } from '@okshaun/components';
-import { NavLink } from './NavLink';
-import { Logo } from '../Logo';
+import { Box, Button, IconButton } from '@okshaun/components';
 import { css, cx } from '@styled-system/css';
+import { Logo } from '../Logo';
+import { NavLink } from './NavLink';
+import { useLocation } from 'react-router-dom';
 
 type NavigationProps = {
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
 };
 
+// Home is reached by the logo, so it is not repeated here.
 const navigationItems = [
-  { path: '/', label: 'Home' },
-  { path: '/team', label: 'Team' },
-  // { path: '/pledge', label: 'Pledge' },
+  { path: '/programs', label: 'Programs' },
+  { path: '/events', label: 'Events' },
+  { path: '/artists', label: 'Artists' },
+  { path: '/news', label: 'News' },
+  { path: '/about', label: 'About' },
   { path: '/contact', label: 'Contact' },
 ];
+
+// Donate sits apart from the list: it is the one call to action, and it is
+// styled as a button rather than a link so it reads that way at a glance.
+const donateStyle = css({
+  textDecoration: 'none',
+  width: 'full',
+  textAlign: 'center',
+  md: {
+    width: 'fit',
+  },
+});
 
 const navStyle = css({
   display: 'flex',
@@ -27,14 +41,14 @@ const navStyle = css({
   top: '0',
   right: '0',
   bg: 'transparent',
-  zIndex: '100',
+  zIndex: '1000',
   transition: ['background', 'colors', 'size'],
   overflow: 'hidden',
   '&.mobile-menu-open': {
     width: 'full',
     height: 'full',
     bg: 'surface.raised',
-    boxShadow: 'medium',
+    boxShadow: 'elevated',
     transition: ['background', 'colors', 'size'],
   },
   xs: {
@@ -60,7 +74,7 @@ const navStyle = css({
     width: 'fit',
     height: 'fit',
     bg: 'transparent',
-    boxShadow: 'none',
+    boxShadow: 'zero',
     flexDirection: 'row',
     gap: '32',
     overflow: 'visible',
@@ -103,11 +117,12 @@ export function Navigation({
       className={cx(navStyle, mobileMenuOpen && 'mobile-menu-open')}
     >
       <Box className={navHeader}>
-        <Logo variant='mkbd-sm-bird' color='bg.neutral.pressed' />
+        <Logo variant='mkbd-sm-bird' height='32' color='bg.neutral.pressed' />
         <IconButton
           iconName='x'
           appearance='subtle'
-          size='large'
+          altText='Close menu'
+          size='lg'
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label='Close menu'
           aria-expanded={mobileMenuOpen}
@@ -125,6 +140,15 @@ export function Navigation({
           {item.label}
         </NavLink>
       ))}
+
+      <Button
+        href='/donate'
+        variant='primary'
+        onClick={() => setMobileMenuOpen(false)}
+        className={donateStyle}
+      >
+        Donate
+      </Button>
     </Box>
   );
 }

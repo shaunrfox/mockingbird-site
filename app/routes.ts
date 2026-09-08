@@ -8,8 +8,19 @@ export default [
 
   layout('routes/main-layout.tsx', [
     index('routes/home.tsx'),
-    route('team', 'routes/team.tsx'),
+    route('about', 'routes/about.tsx'),
     route('programs/:slug', 'routes/program.tsx'),
+    route('events', 'routes/events.tsx'),
+    route('programs/:programSlug/:dateSlug', 'routes/event.tsx'),
+    // One-offs have no program to sit under.
+    route('events/:slug', 'routes/standalone-event.tsx'),
+    route('artists', 'routes/artists.tsx'),
+    route('artists/:slug', 'routes/artist.tsx'),
+    route('exhibitions', 'routes/exhibitions.tsx'),
+    route('exhibitions/:slug', 'routes/exhibition.tsx'),
+    route('programs', 'routes/programs.tsx'),
+    route('news', 'routes/news.tsx'),
+    route('donate', 'routes/donate.tsx'),
     route('pledge', 'routes/pledge.tsx'),
     route('contact', 'routes/contact.tsx'),
   ]),
