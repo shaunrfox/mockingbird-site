@@ -1,7 +1,10 @@
+import { Link } from 'react-router';
 import { Box, Heading, Text } from '@okshaun/components';
+import { link } from '@styled-system/recipes';
 import { Flex, VStack } from '@styled-system/jsx';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
-import { getProgram } from '../../src/lib/sanity';
+import { RichText } from '../../src/components/RichText';
+import { eventHref, getProgram } from '../../src/lib/sanity';
 import type { Route } from './+types/program';
 
 /**
@@ -53,6 +56,8 @@ export default function ProgramPage({ loaderData }: Route.ComponentProps) {
           <Text>{program.shortDescription}</Text>
         </Box>
 
+        <RichText value={program.description} />
+
         <Box>
           <Heading as="h2">Upcoming</Heading>
           {program.upcoming.length === 0 ? (
@@ -61,7 +66,14 @@ export default function ProgramPage({ loaderData }: Route.ComponentProps) {
             <VStack alignItems="flex-start" gap="3">
               {program.upcoming.map((e) => (
                 <Flex key={e._id} flexDir="column">
-                  <Text textStyle="heading.sm">{when(e)}</Text>
+                  <Text textStyle="heading.sm">
+                    <Link
+                      to={eventHref({ slug: e.slug, programSlug: program.slug })}
+                      className={link({ underline: false })}
+                    >
+                      {when(e)}
+                    </Link>
+                  </Text>
                   {e.venueName ? <Text>{e.venueName}</Text> : null}
                 </Flex>
               ))}
@@ -77,7 +89,12 @@ export default function ProgramPage({ loaderData }: Route.ComponentProps) {
             <VStack alignItems="flex-start" gap="2">
               {program.past.map((e) => (
                 <Text key={e._id}>
-                  {when(e)}
+                  <Link
+                    to={eventHref({ slug: e.slug, programSlug: program.slug })}
+                    className={link({ underline: false })}
+                  >
+                    {when(e)}
+                  </Link>
                   {e.venueName ? ` · ${e.venueName}` : ''}
                 </Text>
               ))}
