@@ -1,2 +1,2 @@
-// Placeholder - will be populated in Phase 5
-export const recipes = {}
+
+export { LOGO_NAMES, type LogoName, logoRecipe } from './logo';

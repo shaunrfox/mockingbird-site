@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { css, cx } from '@styled-system/css';
+import { Link } from 'react-router-dom';
 
 const navLinkStyle = css({
   display: 'block',

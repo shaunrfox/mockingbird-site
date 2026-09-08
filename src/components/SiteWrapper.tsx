@@ -13,7 +13,7 @@ const siteWrapperStyles = css({
     alignItems: 'center',
     justifyContent: 'space-between',
     w: 'full',
-    maxWidth: '5xl',
+    maxWidth: '8xl',
     px: '24',
     mx: 'auto',
     xs: {

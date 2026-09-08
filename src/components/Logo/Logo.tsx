@@ -1,78 +1,50 @@
-import { css } from '@styled-system/css';
-import { Box, type BoxProps } from '@okshaun/components';
+import { Box, splitProps, type BoxProps } from '@okshaun/components';
+import { cx } from '@styled-system/css';
+import { logo, type LogoVariantProps } from '@styled-system/recipes';
+import { LOGO_NAMES, type LogoName } from '../../recipes/logo';
 
-const LOGO_CONFIGS = {
-  'mockingbird-logo': {
-    viewBox: '0 0 165 106',
-    width: 165,
-    height: 106,
-  },
-  'mkbd-arts-logotype': {
-    viewBox: '0 0 112 32',
-    width: 112,
-    height: 32,
-  },
-  'mkbd-sm-bird': {
-    viewBox: '0 0 39 32',
-    width: 39,
-    height: 32,
-  },
-  'mkbd-arts-logo': {
-    viewBox: '0 0 126 83',
-    width: 126,
-    height: 83,
-  },
-  'mkbd-arts-logo-2': {
-    viewBox: '0 0 155 32',
-    width: 155,
-    height: 32,
-  },
-  'mockingbird-arts-logotype': {
-    viewBox: '0 0 194 32',
-    width: 194,
-    height: 32,
-  },
-  'mkbd-logo': {
-    viewBox: '0 0 71 58',
-    width: 71,
-    height: 58,
-  },
-  'mkbd-logo-2': {
-    viewBox: '0 0 104 32',
-    width: 104,
-    height: 32,
-  },
-  'mockingbird-logo-badge': {
-    viewBox: '0 0 186 126',
-    width: 186,
-    height: 126,
-  },
-} as const;
-
-export type LogoVariant = keyof typeof LOGO_CONFIGS;
-
-const logoStyles = css({
-  color: 'icon',
-});
-
-type LogoProps = BoxProps & {
-  variant?: LogoVariant;
+type LogoOwnProps = {
+  /**
+   * Which lockup to render. Responsive/conditional values are supported, e.g.
+   * `{ base: 'mkbd-arts-logotype', sm: 'mockingbird-arts-logotype' }`.
+   */
+  variant?: LogoVariantProps['variant'];
+  /** Accessible name. Pass `''` to mark the logo decorative. */
+  altText?: string;
 };
 
-export function Logo({ variant = 'mockingbird-logo', ...props }: LogoProps) {
-  const config = LOGO_CONFIGS[variant];
+export type LogoProps = Omit<BoxProps, keyof LogoVariantProps | keyof LogoOwnProps> &
+  Omit<LogoVariantProps, keyof LogoOwnProps> &
+  LogoOwnProps;
+
+/** Every lockup named by a (possibly conditional) variant value. */
+function usedNames(variant: LogoVariantProps['variant']): LogoName[] {
+  if (typeof variant === 'string') return [variant];
+  if (!variant) return [];
+  const names = Object.values(variant).filter(Boolean) as LogoName[];
+  return LOGO_NAMES.filter((name) => names.includes(name));
+}
+
+export function Logo({
+  variant = 'mockingbird-logo',
+  altText = 'Mockingbird Arts',
+  ...rest
+}: LogoProps) {
+  const [className, otherProps] = splitProps(rest);
 
   return (
     <Box
       as='svg'
-      className={logoStyles}
-      viewBox={config.viewBox}
-      // width={config.width}
-      // height={config.height}
-      aria-label='Mockingbird Arts'
-      {...props}
+      xmlns='http://www.w3.org/2000/svg'
+      className={cx(logo({ variant }), className)}
+      role='img'
+      aria-label={altText || undefined}
+      aria-hidden={altText ? undefined : true}
+      {...otherProps}
     >
-      <use href={`#${variant}`} />
+      {usedNames(variant).map((name) => (
+        <use key={name} data-logo={name} href={`#${name}`} />
+      ))}
     </Box>
   );
 }

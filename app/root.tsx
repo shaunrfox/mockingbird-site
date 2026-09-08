@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router';
-import { ThemeProvider } from '@okshaun/components';
+import { ThemeProvider, IconProvider } from '@okshaun/components';
 import sprite from '../src/assets/logos-sprite.svg?raw';
+import spriteUrl from '@okshaun/components/sprite.svg';
 import '../src/index.css';
 import '../src/App.css';
 
@@ -52,7 +53,9 @@ export function Layout({ children }: { children: ReactNode }) {
 export default function Root() {
   return (
     <ThemeProvider>
-      <Outlet />
+      <IconProvider spritePath={spriteUrl}>
+        <Outlet />
+      </IconProvider>
     </ThemeProvider>
   );
 }

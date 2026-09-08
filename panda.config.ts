@@ -1,6 +1,7 @@
 import { defineConfig, defineTokens } from '@pandacss/dev';
 import { okshaunPreset } from '@okshaun/components/preset';
 import { globalCss, fonts, keyframes } from './src/styles';
+import * as recipes from './src/recipes/';
 
 const theme = {
   tokens: defineTokens({
@@ -35,6 +36,16 @@ export default defineConfig({
       keyframes: {
         ...keyframes,
       },
+      recipes: {
+        logo: recipes.logoRecipe,
+      },
+    },
+  },
+  // The `variant` values are picked at runtime (and can be responsive), so the
+  // extractor can't see them. Emit every variant at every breakpoint instead.
+  staticCss: {
+    recipes: {
+      logo: [{ variant: ['*'], responsive: true }],
     },
   },
   globalCss: {

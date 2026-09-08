@@ -2,7 +2,6 @@ import { useState } from 'react';
 import {
   Box,
   IconButton,
-  useMediaQuery,
   splitProps,
   type BoxProps,
 } from '@okshaun/components';
@@ -18,9 +17,9 @@ const headerStyle = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  position: { base: 'sticky', lg: 'relative' },
+  position: 'sticky',
   top: '0',
-  zIndex: 10,
+  zIndex: '10',
 });
 
 type HeaderProps = BoxProps & {
@@ -30,7 +29,7 @@ type HeaderProps = BoxProps & {
 const logoLinkStyles = css({
   cursor: 'pointer',
   _hover: {
-    animation: 'squiggle 0.3s infinite',
+    animation: '[squiggle 0.3s infinite]',
   },
 });
 
@@ -39,39 +38,28 @@ export function Header({ ...props }: HeaderProps) {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const isMd = useMediaQuery('md', 'max');
-  const isSm = useMediaQuery('sm');
-  const isLg = useMediaQuery('lg');
-
-  const renderLogo = () => {
-    if (isLg) {
-      return <Logo variant='mockingbird-logo' height={160} />;
-    }
-    if (isSm) {
-      return <Logo variant='mockingbird-arts-logotype' height={32} />;
-    }
-    return <Logo variant='mkbd-arts-logotype' height={32} />;
-  };
-
   return (
     <Box as='header' className={cx(headerStyle, className)} {...otherProps}>
       <SiteWrapper
-        flexDir={{ base: 'row', lg: 'column' }}
+        flexDir='row'
         gap='32'
         pb='8'
-        pt={{ base: '8', lg: '64' }}
+        pt='8'
       >
         <Link to='/' className={logoLinkStyles}>
-          {renderLogo()}
-        </Link>
-        {isMd && (
-          <IconButton
-            iconName='menu'
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label='Toggle menu'
-            aria-expanded={mobileMenuOpen}
+          <Logo
+            variant={{ base: 'mkbd-arts-logotype', sm: 'mockingbird-arts-logotype' }}
+            height='32'
           />
-        )}
+        </Link>
+        <IconButton
+          iconName='menu'
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          altText='Toggle menu'
+          aria-label='Toggle menu'
+          aria-expanded={mobileMenuOpen}
+          display={{ base: 'flex', md: 'none' }}
+        />
         <Navigation
           mobileMenuOpen={mobileMenuOpen}
           setMobileMenuOpen={setMobileMenuOpen}
