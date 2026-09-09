@@ -369,3 +369,36 @@ export async function getExhibition(slug: string): Promise<ExhibitionDetail | nu
     { slug }
   );
 }
+
+/* ------------------------------------------------------------------ *
+ * Home page
+ * ------------------------------------------------------------------ */
+
+export type HomeContent = {
+  featured: ProgramCard[];
+  upcoming: ListEvent[];
+};
+
+/**
+ * The two things on the home page that go stale: what is coming up, and
+ * which programs the board wants led with. Both are editable — before this
+ * the home page was entirely hardcoded, so `featureOnHome` existed in the
+ * studio and changed nothing.
+ */
+export async function getHomeContent(today: string, limit = 3): Promise<HomeContent> {
+  return sanity.fetch(
+    `{
+      "featured": *[_type == "program" && featureOnHome == true
+                    && status == "active" && defined(slug.current)]
+        | order(name asc) {
+          _id, name, kind, status, shortDescription,
+          "slug": slug.current,
+          "heroImage": heroImage{"url": asset->url},
+          "upcomingCount": count(*[_type == "event" && program._ref == ^._id && date >= $today])
+        },
+      "upcoming": *[_type == "event" && date >= $today]
+        | order(date asc) [0...$limit] { ${LIST_FIELDS} }
+    }`,
+    { today, limit }
+  );
+}

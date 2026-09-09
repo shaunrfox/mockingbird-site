@@ -1,8 +1,25 @@
-import { Box, Heading, Text } from "@okshaun/components";
+import { Link } from "react-router";
+import { Box, Divider, Heading, Text } from "@okshaun/components";
+import { link } from "@styled-system/recipes";
 import { SiteWrapper } from "../components/SiteWrapper";
 import { Flex, VStack } from "@styled-system/jsx";
+import { eventHref, type ListEvent, type ProgramCard } from "../lib/sanity";
 
-export default function Home() {
+type HomeProps = {
+  featured?: ProgramCard[];
+  upcoming?: ListEvent[];
+};
+
+function whenText(e: ListEvent) {
+  const day = new Date(`${e.date}T12:00:00`).toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+  return e.venueName ? `${day} · ${e.venueName}` : day;
+}
+
+export default function Home({ featured = [], upcoming = [] }: HomeProps) {
   return (
     <>
       <SiteWrapper gap="64" py="64">
@@ -25,6 +42,34 @@ export default function Home() {
           </Box>
         </Text>
       </SiteWrapper>
+
+      {/* Nothing here is hardcoded — an empty calendar renders as an honest
+          empty state rather than a stale list. */}
+      {upcoming.length > 0 && (
+        <SiteWrapper gap="16" py="48">
+          <VStack maxWidth="4xl" alignItems="start" gap="16" width="full">
+            <Heading textStyle="mono.lg" textTransform="uppercase">
+              Coming up
+            </Heading>
+            <VStack alignItems="start" gap="8" width="full">
+              {upcoming.map((e) => (
+                <Flex key={e._id} direction="column" gap="1">
+                  <Text textStyle="heading.sm">
+                    <Link to={eventHref(e)} className={link({ underline: false })}>
+                      {e.title}
+                    </Link>
+                  </Text>
+                  <Text textStyle="body.lg">{whenText(e)}</Text>
+                </Flex>
+              ))}
+            </VStack>
+            <Link to="/events" className={link()}>
+              The whole calendar
+            </Link>
+          </VStack>
+        </SiteWrapper>
+      )}
+
       <Box
         bg="surface.sunken"
         borderInlineWidth="0"
@@ -144,6 +189,32 @@ export default function Home() {
           </Flex>
         </VStack>
       </SiteWrapper>
+      {featured.length > 0 && (
+        <SiteWrapper gap="16" py="64">
+          <VStack maxWidth="4xl" alignItems="start" gap="16" width="full">
+            <Heading textStyle="mono.lg" textTransform="uppercase">
+              Programs
+            </Heading>
+            <VStack alignItems="start" gap="12" width="full">
+              {featured.map((p) => (
+                <Flex key={p._id} direction="column" gap="2">
+                  <Heading level="h3">
+                    <Link to={`/programs/${p.slug}`} className={link({ underline: false })}>
+                      {p.name}
+                    </Link>
+                  </Heading>
+                  <Text textStyle="body.lg">{p.shortDescription}</Text>
+                </Flex>
+              ))}
+            </VStack>
+            <Divider direction="horizontal" />
+            <Link to="/programs" className={link()}>
+              Everything we run
+            </Link>
+          </VStack>
+        </SiteWrapper>
+      )}
+
       <SiteWrapper gap="16" py="96">
         <VStack
           maxW="4xl"
