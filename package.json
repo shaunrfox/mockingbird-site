@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "panda codegen --watch & react-router dev",
-    "build": "panda codegen && react-router build && cp build/client/__spa-fallback.html build/client/404.html",
+    "build": "panda codegen && tsx scripts/build-ics.ts && react-router build && cp build/client/__spa-fallback.html build/client/404.html",
     "panda": "panda codegen",
     "lint": "eslint .",
     "preview": "npx --yes serve build/client",
@@ -38,6 +38,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "tsx": "^4.23.13",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2",

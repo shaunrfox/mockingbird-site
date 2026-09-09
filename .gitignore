@@ -29,3 +29,6 @@ styled-system
 styled-system-studio
 ## React Router generated types
 .react-router
+
+## Generated at build time
+public/events.ics

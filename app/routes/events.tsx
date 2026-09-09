@@ -107,6 +107,13 @@ export default function EventsPage({ loaderData }: Route.ComponentProps) {
       <VStack alignItems="stretch" gap="8" py="12">
         <Flex justifyContent="space-between" alignItems="baseline" gap="4" flexWrap="wrap">
           <Heading as="h1">Events</Heading>
+        {/* A subscription beats checking back. Regenerated on every deploy,
+            same as every page here. */}
+        <Text>
+          <a href="/events.ics" className={link()}>
+            Subscribe in your calendar
+          </a>
+        </Text>
           <label>
             <Text as="span">Show </Text>
             <select
