@@ -4,7 +4,7 @@ import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import Home from "./pages/Home";
 import Team from "./pages/Team";
-import Pledge from "./pages/Pledge";
+import Donate from "./pages/Donate";
 import Contact from "./pages/Contact";
 import {
   NewsletterConfirmed,
@@ -39,7 +39,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/team" element={<Team />} />
-          <Route path="/pledge" element={<Pledge />} />
+          <Route path="/donate" element={<Donate />} />
           <Route path="/contact" element={<Contact />} />
         </Route>
       </Routes>
