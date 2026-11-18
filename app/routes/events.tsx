@@ -4,7 +4,8 @@ import { Box, Divider, Heading, Text } from '@okshaun/components';
 import { link } from '@styled-system/recipes';
 import { Flex, VStack } from '@styled-system/jsx';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
-import { eventHref, getEventsList, type ListEvent } from '../../src/lib/sanity';
+import { getEventsList, type ListEvent } from '../../src/lib/sanity';
+import { Event } from '../../src/components/Event/Event';
 import type { Route } from './+types/events';
 
 /** How many archive entries are in the page before anyone clicks. */
@@ -25,52 +26,6 @@ export function meta() {
         'What is coming up at Mockingbird Arts, and everything we have gathered for since 2021.',
     },
   ];
-}
-
-function clock(t?: string) {
-  if (!t) return null;
-  const [h, m] = t.split(':').map(Number);
-  const suffix = h >= 12 ? 'pm' : 'am';
-  const hour = h % 12 === 0 ? 12 : h % 12;
-  return m ? `${hour}:${String(m).padStart(2, '0')}${suffix}` : `${hour}${suffix}`;
-}
-
-function longDate(date: string) {
-  return new Date(`${date}T12:00:00`).toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
-function EventRow({ e, showYear }: { e: ListEvent; showYear?: boolean }) {
-  const start = clock(e.startTime);
-  const end = clock(e.endTime);
-  const time = start ? (end ? `${start}–${end}` : start) : null;
-  const when = showYear ? `${longDate(e.date)}, ${e.date.slice(0, 4)}` : longDate(e.date);
-
-  return (
-    <Flex flexDir="column" gap="2" py="8">
-      <Text textStyle="heading.sm">
-        <Link to={eventHref(e)} className={link({ underline: false })}>
-          {e.title}
-        </Link>
-      </Text>
-      <Text>
-        {when}
-        {time ? ` · ${time}` : ''}
-        {e.venueName ? ` · ${e.venueName}` : ''}
-      </Text>
-      {e.programSlug && e.programName ? (
-        <Text>
-          Part of{' '}
-          <Link to={`/programs/${e.programSlug}`} className={link({ underline: false })}>
-            {e.programName}
-          </Link>
-        </Text>
-      ) : null}
-    </Flex>
-  );
 }
 
 export default function EventsPage({ loaderData }: Route.ComponentProps) {
@@ -138,7 +93,11 @@ export default function EventsPage({ loaderData }: Route.ComponentProps) {
           {up.length === 0 ? (
             <Text>Nothing on the calendar right now. The archive is below.</Text>
           ) : (
-            up.map((e) => <EventRow key={e._id} e={e} />)
+            <VStack alignItems="stretch" gap="40" pt="24">
+              {up.map((e) => (
+                <Event key={e._id} event={e} />
+              ))}
+            </VStack>
           )}
         </Box>
 
@@ -160,8 +119,15 @@ export default function EventsPage({ loaderData }: Route.ComponentProps) {
             </Text>
             {withYearBreaks.map(({ year, event }) => (
               <Box key={event._id}>
-                {year ? <Text textStyle="heading.sm">{year}</Text> : null}
-                <EventRow e={event} />
+                {year ? (
+                  <Text textStyle="heading.sm" pt="32" pb="16">
+                    {year}
+                  </Text>
+                ) : null}
+                {/* The archive is long; descriptions repeat per program, so leave them out. */}
+                <Box pb="32">
+                  <Event event={event} showDescription={false} />
+                </Box>
               </Box>
             ))}
             {shown < archive.length && (

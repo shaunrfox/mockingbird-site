@@ -27,6 +27,31 @@ export function clock(t?: string): string | null {
   return m ? `${hour}:${String(m).padStart(2, '0')}${suffix}` : `${hour}${suffix}`;
 }
 
+/** "7pm–9pm", "7pm", or null. */
+export function timeRange(start?: string, end?: string): string | null {
+  const s = clock(start);
+  const e = clock(end);
+  return s ? (e ? `${s}–${e}` : s) : null;
+}
+
+/** "Sep 12, 2026", the date line on an event card. */
+export function shortDate(date: string): string {
+  return new Date(`${date}T12:00:00`).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+}
+
+/** { month: "SEP", day: "12" } for the date badge. */
+export function badgeDate(date: string): { month: string; day: string } {
+  const d = new Date(`${date}T12:00:00`);
+  return {
+    month: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(),
+    day: String(d.getDate()),
+  };
+}
+
 export function eventMeta(e: EventDetail | undefined) {
   if (!e) return [{ title: 'Mockingbird Arts' }];
   const when = new Date(`${e.date}T12:00:00`).toLocaleDateString('en-US', {
