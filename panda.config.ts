@@ -20,11 +20,17 @@ export default defineConfig({
   eject: true,
   include: [
     './src/**/*.{ts,tsx,js,jsx}',
+    // React Router routes and layouts live in app/, outside src/.
+    './app/**/*.{ts,tsx,js,jsx}',
     './node_modules/@okshaun/components/dist/panda.buildinfo.json',
     './node_modules/@okshaun/components/dist/**/*.js',
   ],
   exclude: [],
-  importMap: '@okshaun/components',
+  // Both import roots: okshaun components, and this site's own generated
+  // styled-system (imported as @styled-system/*). With only the first, Panda
+  // skips css() and recipe calls imported from @styled-system, so variants
+  // like link({ bold: true }) produced no CSS.
+  importMap: ['@okshaun/components', '@styled-system'],
   outdir: 'styled-system',
   presets: ['@pandacss/preset-base', okshaunPreset],
   prefix: 'oks', // classnames weren't correct without this
