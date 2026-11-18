@@ -114,6 +114,10 @@ export type ListEvent = {
   programName?: string;
   programSlug?: string;
   venueName?: string;
+  /** Absent for private homes on purpose: the card then says to contact us. */
+  venueAddress?: string;
+  /** The program's one-line description, for cards. */
+  description?: string;
 };
 
 const LIST_FIELDS = `
@@ -125,7 +129,9 @@ const LIST_FIELDS = `
   "title": coalesce(program->name, titleOverride),
   "programName": program->name,
   "programSlug": program->slug.current,
-  "venueName": venue->name
+  "venueName": venue->name,
+  "venueAddress": venue->address,
+  "description": program->shortDescription
 `;
 
 /**

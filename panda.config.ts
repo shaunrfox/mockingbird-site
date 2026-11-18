@@ -6,6 +6,13 @@ import * as recipes from './src/recipes/';
 const theme = {
   tokens: defineTokens({
     fonts,
+    colors: {
+      // Mockingbird brand colors. Not in the okshaun palette: its yellow.30
+      // (#EED12B) is close but not the brand yellow on the date badge and rules.
+      brand: {
+        yellow: { value: '#fac917' },
+      },
+    },
   }),
   // semanticTokens: defineSemanticTokens({
   //   ...semantics,

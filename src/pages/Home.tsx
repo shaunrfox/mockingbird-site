@@ -3,21 +3,13 @@ import { Box, Divider, Heading, Text } from "@okshaun/components";
 import { link } from "@styled-system/recipes";
 import { SiteWrapper } from "../components/SiteWrapper";
 import { Flex, VStack } from "@styled-system/jsx";
-import { eventHref, type ListEvent, type ProgramCard } from "../lib/sanity";
+import { type ListEvent, type ProgramCard } from "../lib/sanity";
+import { Event } from "../components/Event/Event";
 
 type HomeProps = {
   featured?: ProgramCard[];
   upcoming?: ListEvent[];
 };
-
-function whenText(e: ListEvent) {
-  const day = new Date(`${e.date}T12:00:00`).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
-  return e.venueName ? `${day} · ${e.venueName}` : day;
-}
 
 export default function Home({ featured = [], upcoming = [] }: HomeProps) {
   return (
@@ -53,14 +45,7 @@ export default function Home({ featured = [], upcoming = [] }: HomeProps) {
             </Heading>
             <VStack alignItems="start" gap="8" width="full">
               {upcoming.map((e) => (
-                <Flex key={e._id} direction="column" gap="1">
-                  <Text textStyle="heading.sm">
-                    <Link to={eventHref(e)} className={link({ underline: false })}>
-                      {e.title}
-                    </Link>
-                  </Text>
-                  <Text textStyle="body.lg">{whenText(e)}</Text>
-                </Flex>
+                <Event key={e._id} event={e} layout="mini" />
               ))}
             </VStack>
             <Link to="/events" className={link()}>
