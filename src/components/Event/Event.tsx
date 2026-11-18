@@ -8,7 +8,9 @@ import { shortDate, timeRange } from '../../lib/event-format';
 import { DateBadge } from './DateBadge';
 
 // Figma shows card links in the text color, not the blue link color.
-const linkInText = css({ color: 'text', _hover: { textDecoration: 'underline' } });
+// No hover rule here: the link recipe already draws its hover underline with a
+// background line, and a text-decoration underline would make two.
+const linkInText = css({ color: 'text' });
 const cardLink = cx(link({ underline: false }), linkInText);
 // The link sets its own weight, so the Mini title asks for bold back. A utility,
 // not link({ bold: true }): Panda emits no CSS for recipe variants passed as
