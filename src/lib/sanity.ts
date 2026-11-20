@@ -280,7 +280,8 @@ export type ArtistCard = {
   slug: string;
   sortName: string;
   mediums: Medium[];
-  headshot?: { url: string };
+  /** hotspot is the focal point an editor set in the studio, as 0–1 fractions. */
+  headshot?: { url: string; hotspot?: { x: number; y: number } };
 };
 
 export type ArtistDetail = ArtistCard & {
@@ -302,7 +303,7 @@ const ARTIST_CARD = `
     mediums
   ),
   "slug": slug.current,
-  "headshot": headshot{"url": asset->url}
+  "headshot": headshot{"url": asset->url, hotspot}
 `;
 
 export const slugify = (s: string) =>

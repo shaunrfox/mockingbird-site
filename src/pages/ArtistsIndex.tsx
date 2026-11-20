@@ -1,15 +1,14 @@
-import { Link } from 'react-router';
 import { Box, Heading, Text } from '@okshaun/components';
-import { Flex, VStack } from '@styled-system/jsx';
-import { link } from '@styled-system/recipes';
+import { Grid, VStack } from '@styled-system/jsx';
 import { SiteWrapper } from '../components/SiteWrapper';
 import { TagList } from '../components/Tag/Tag';
-import type { ArtistCard, Medium } from '../lib/sanity';
+import { ArtistCard } from '../components/ArtistCard/ArtistCard';
+import type { ArtistCard as ArtistCardData, Medium } from '../lib/sanity';
 
 export const mediumHref = (m: Medium) => `/artists/medium/${m.slug}`;
 
 type Props = {
-  artists: ArtistCard[];
+  artists: ArtistCardData[];
   mediums: Medium[];
   /** The medium this page filters by. Absent on /artists, where "All" is selected. */
   current?: Medium;
@@ -32,7 +31,7 @@ export function ArtistsIndex({ artists, mediums, current }: Props) {
 
   return (
     <SiteWrapper>
-      <VStack alignItems="flex-start" gap="12" py="48">
+      <VStack alignItems="flex-start" gap="24" py="48" width="full">
         <Box>
           <Heading as="h1">{current ? `Artists: ${current.name}` : 'Artists'}</Heading>
           <Text>The people who make up this community.</Text>
@@ -47,19 +46,21 @@ export function ArtistsIndex({ artists, mediums, current }: Props) {
         {artists.length === 0 ? (
           <Text>{current ? `No artists listed in ${current.name} yet.` : 'No artists listed yet.'}</Text>
         ) : (
-          <VStack alignItems="flex-start" gap="8">
+          <Grid
+            as="ul"
+            columns={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+            gap="24"
+            width="full"
+            listStyle="none"
+            p="0"
+            m="0"
+          >
             {artists.map((a) => (
-              <Flex key={a._id} flexDir="column" gap="4">
-                <Text textStyle="heading.sm">
-                  <Link to={`/artists/${a.slug}`} className={link({ underline: false })}>
-                    {a.name}
-                  </Link>
-                </Text>
-                {/* Display only: these move into the Artist card, which is itself the link. */}
-                <TagList items={a.mediums.map((m) => ({ label: m.name }))} />
-              </Flex>
+              <li key={a._id}>
+                <ArtistCard artist={a} />
+              </li>
             ))}
-          </VStack>
+          </Grid>
         )}
       </VStack>
     </SiteWrapper>
