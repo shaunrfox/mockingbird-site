@@ -14,6 +14,11 @@ import { cva, cx } from '@styled-system/css';
  *
  * With `href`, the tag renders a Link with hover, pressed, and focus states.
  * `selected` marks the filter that matches the current page.
+ *
+ * Why not okshaun: Chip always renders a button (a toggle, not a link), and
+ * the Tag in okshaun 4.x is display only. This site runs okshaun 3.0.0, which
+ * has no Tag. Move this into okshaun's Tag once it can be a link and the site
+ * is on 4.x.
  */
 const tag = cva({
   base: {
@@ -43,12 +48,14 @@ const tag = cva({
         },
       },
     },
+    // The same selected state as okshaun's Chip, and the same colors as the
+    // `bold` variant of okshaun 4.x's Tag.
     selected: {
       true: {
-        bg: 'bg.neutral.bold',
+        bg: 'bg.neutral.boldest',
         color: 'text.inverse',
-        _hover: { bg: 'bg.neutral.bold' },
-        _active: { bg: 'bg.neutral.bold' },
+        _hover: { bg: 'bg.neutral.bold.hovered' },
+        _active: { bg: 'bg.neutral.bold.pressed' },
       },
     },
   },
