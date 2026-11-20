@@ -389,10 +389,12 @@ export type ExhibitionDetail = ExhibitionCard & {
   relatedEvents?: ListEvent[];
 };
 
+// series is a reference to a series document since 2026-11-20. coalesce keeps
+// an unmigrated string working: on a string, series->name is null.
 const EXHIBITION_CARD = `
   _id,
   title,
-  series,
+  "series": coalesce(series->name, series),
   startDate,
   endDate,
   "slug": slug.current,
