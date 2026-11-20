@@ -3,6 +3,7 @@ import { Box, Heading, Text } from '@okshaun/components';
 import { Flex, VStack } from '@styled-system/jsx';
 import { link } from '@styled-system/recipes';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
+import { TagList } from '../../src/components/Tag/Tag';
 import { getArtists } from '../../src/lib/sanity';
 import type { Route } from './+types/artists';
 
@@ -42,7 +43,7 @@ export default function Artists({ loaderData }: Route.ComponentProps) {
                     {a.name}
                   </Link>
                 </Text>
-                {a.mediums?.length ? <Text>{a.mediums.join(' · ')}</Text> : null}
+                <TagList tags={a.mediums ?? []} />
               </Flex>
             ))}
           </VStack>

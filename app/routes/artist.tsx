@@ -2,8 +2,10 @@ import { Link } from 'react-router';
 import { Box, Divider, Heading, Text } from '@okshaun/components';
 import { Flex, VStack } from '@styled-system/jsx';
 import { link } from '@styled-system/recipes';
+import { css } from '@styled-system/css';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
 import { RichText } from '../../src/components/RichText';
+import { TagList } from '../../src/components/Tag/Tag';
 import { getArtist } from '../../src/lib/sanity';
 import type { Route } from './+types/artist';
 
@@ -32,7 +34,7 @@ export default function Artist({ loaderData }: Route.ComponentProps) {
       <VStack alignItems="flex-start" gap="24" py="48">
         <Box>
           <Heading as="h1">{artist.name}</Heading>
-          {artist.mediums?.length ? <Text>{artist.mediums.join(' · ')}</Text> : null}
+          <TagList tags={artist.mediums ?? []} className={css({ mt: '8' })} />
         </Box>
 
         {artist.headshot ? (
