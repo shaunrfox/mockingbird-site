@@ -67,13 +67,13 @@ export function ArtistCard({ artist: a }: { artist: ArtistCardData }) {
     <Link to={`/artists/${a.slug}`} className={card}>
       {h ? (
         <img
-          src={`${h.url}?w=750&h=500&fit=crop&auto=format`}
+          // Resized for the card's width only, never cropped. CSS frames the
+          // whole image (object-fit: cover), so the file stays as uploaded.
+          src={`${h.url}?w=750&auto=format`}
           alt=""
           loading="lazy"
-          width={750}
-          height={500}
           className={photo}
-          // The editor's focal point, so a crop never cuts off a face.
+          // The editor's focal point decides which part CSS keeps in view.
           style={h.hotspot ? { objectPosition: `${h.hotspot.x * 100}% ${h.hotspot.y * 100}%` } : undefined}
         />
       ) : (
