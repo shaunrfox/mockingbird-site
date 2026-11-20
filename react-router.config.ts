@@ -10,13 +10,14 @@ export default {
   // HTML at build time; loaders run then, not on request.
   ssr: false,
   async prerender() {
-    const { getProgramSlugs, getEventPaths, getArtistSlugs, getExhibitionSlugs } =
+    const { getProgramSlugs, getEventPaths, getArtistSlugs, getExhibitionSlugs, getMediums } =
       await import('./src/lib/sanity');
-    const [slugs, eventPaths, artistSlugs, exhibitionSlugs] = await Promise.all([
+    const [slugs, eventPaths, artistSlugs, exhibitionSlugs, mediums] = await Promise.all([
       getProgramSlugs(),
       getEventPaths(),
       getArtistSlugs(),
       getExhibitionSlugs(),
+      getMediums(),
     ]);
     return [
       // Static pages. Every route in app/routes.ts belongs here — one that is
@@ -41,6 +42,7 @@ export default {
       ...slugs.map((s) => `/programs/${s}`),
       ...eventPaths,
       ...artistSlugs.map((s) => `/artists/${s}`),
+      ...mediums.map((m) => `/artists/medium/${m.slug}`),
       ...exhibitionSlugs.map((s) => `/exhibitions/${s}`),
     ];
   },

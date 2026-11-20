@@ -6,6 +6,7 @@ import { css } from '@styled-system/css';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
 import { RichText } from '../../src/components/RichText';
 import { TagList } from '../../src/components/Tag/Tag';
+import { mediumHref } from '../../src/pages/ArtistsIndex';
 import { getArtist } from '../../src/lib/sanity';
 import type { Route } from './+types/artist';
 
@@ -20,7 +21,7 @@ export function meta({ data }: Route.MetaArgs) {
   if (!a) return [{ title: 'Mockingbird Arts' }];
   return [
     { title: `${a.name} · Mockingbird Arts` },
-    { name: 'description', content: a.mediums?.join(', ') ?? '' },
+    { name: 'description', content: a.mediums.map((m) => m.name).join(', ') },
     { property: 'og:title', content: a.name },
     ...(a.headshot ? [{ property: 'og:image', content: a.headshot.url }] : []),
   ];
@@ -34,7 +35,12 @@ export default function Artist({ loaderData }: Route.ComponentProps) {
       <VStack alignItems="flex-start" gap="24" py="48">
         <Box>
           <Heading as="h1">{artist.name}</Heading>
-          <TagList tags={artist.mediums ?? []} className={css({ mt: '8' })} />
+          <TagList
+            items={artist.mediums.map((m) => ({ label: m.name, href: mediumHref(m) }))}
+            size="md"
+            aria-label="Mediums"
+            className={css({ mt: '12' })}
+          />
         </Box>
 
         {artist.headshot ? (
