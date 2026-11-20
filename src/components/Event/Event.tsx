@@ -12,10 +12,8 @@ import { DateBadge } from './DateBadge';
 // background line, and a text-decoration underline would make two.
 const linkInText = css({ color: 'text' });
 const cardLink = cx(link({ underline: false }), linkInText);
-// The link sets its own weight, so the Mini title asks for bold back. A utility,
-// not link({ bold: true }): Panda emits no CSS for recipe variants passed as
-// function arguments here (checked 2026-11-17: no .oks-link--bold_true rule).
-const titleLink = cx(link({ underline: false }), linkInText, css({ fontWeight: 'bold' }));
+// The link sets its own weight, so the Mini title asks for bold back.
+const titleLink = cx(link({ underline: false, bold: true }), linkInText);
 
 type EventProps = {
   event: ListEvent;
