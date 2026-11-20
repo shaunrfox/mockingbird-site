@@ -272,12 +272,14 @@ export type ArtistWork = {
   image?: { url: string };
 };
 
+export type Medium = { name: string; slug: string };
+
 export type ArtistCard = {
   _id: string;
   name: string;
   slug: string;
   sortName: string;
-  mediums?: string[];
+  mediums: Medium[];
   headshot?: { url: string };
 };
 
@@ -287,20 +289,65 @@ export type ArtistDetail = ArtistCard & {
   works?: ArtistWork[];
 };
 
+// Mediums are moving from typed strings to references to medium documents.
+// Until the migration runs, production holds strings, so this reads both:
+// references resolve to {name, slug}, and strings pass through as they are.
+// normalizeMediums turns the strings into the same shape.
 const ARTIST_CARD = `
   _id,
   name,
   sortName,
-  mediums,
+  "mediums": select(
+    defined(mediums[0]._ref) => mediums[]->{name, "slug": slug.current},
+    mediums
+  ),
   "slug": slug.current,
   "headshot": headshot{"url": asset->url}
 `;
 
+export const slugify = (s: string) =>
+  s
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+type RawMediums = (Medium | string | null)[] | null | undefined;
+
+/** Strings from before the migration become {name, slug}. Dangling references drop out. */
+function normalizeMediums(raw: RawMediums): Medium[] {
+  return (raw ?? []).flatMap((m) => {
+    if (!m) return [];
+    if (typeof m === 'string') return [{ name: m.trim(), slug: slugify(m) }];
+    return m.name && m.slug ? [m] : [];
+  });
+}
+
+function normalizeArtist<T extends { mediums?: RawMediums }>(a: T): T & { mediums: Medium[] } {
+  return { ...a, mediums: normalizeMediums(a.mediums) };
+}
+
 /** Everyone, filed the way a person reads a list — by sortName, not name. */
 export async function getArtists(): Promise<ArtistCard[]> {
-  return sanity.fetch(
+  const rows = await sanity.fetch(
     `*[_type == "artist" && defined(slug.current)] | order(sortName asc) { ${ARTIST_CARD} }`
   );
+  return rows.map(normalizeArtist);
+}
+
+/**
+ * Every medium, in the order set in the studio. Before the migration there
+ * are no medium documents, so the list comes from the artists' strings, A to Z.
+ */
+export async function getMediums(): Promise<Medium[]> {
+  const docs: Medium[] = await sanity.fetch(
+    `*[_type == "medium" && defined(slug.current)] | order(order asc, name asc){name, "slug": slug.current}`
+  );
+  if (docs.length > 0) return docs;
+  const artists = await getArtists();
+  const bySlug = new Map(artists.flatMap((a) => a.mediums).map((m) => [m.slug, m]));
+  return [...bySlug.values()].sort((a, b) => a.name.localeCompare(b.name));
 }
 
 export async function getArtistSlugs(): Promise<string[]> {
@@ -308,7 +355,7 @@ export async function getArtistSlugs(): Promise<string[]> {
 }
 
 export async function getArtist(slug: string): Promise<ArtistDetail | null> {
-  return sanity.fetch(
+  const row = await sanity.fetch(
     `*[_type == "artist" && slug.current == $slug][0]{
       ${ARTIST_CARD},
       bio,
@@ -317,6 +364,7 @@ export async function getArtist(slug: string): Promise<ArtistDetail | null> {
     }`,
     { slug }
   );
+  return row ? normalizeArtist(row) : null;
 }
 
 /* ------------------------------------------------------------------ *

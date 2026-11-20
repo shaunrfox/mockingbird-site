@@ -15,6 +15,7 @@ export default [
     // One-offs have no program to sit under.
     route('events/:slug', 'routes/standalone-event.tsx'),
     route('artists', 'routes/artists.tsx'),
+    route('artists/medium/:slug', 'routes/artists-medium.tsx'),
     route('artists/:slug', 'routes/artist.tsx'),
     route('exhibitions', 'routes/exhibitions.tsx'),
     route('exhibitions/:slug', 'routes/exhibition.tsx'),
