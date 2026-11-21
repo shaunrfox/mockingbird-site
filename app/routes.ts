@@ -23,5 +23,7 @@ export default [
     route('news', 'routes/news.tsx'),
     route('donate', 'routes/donate.tsx'),
     route('contact', 'routes/contact.tsx'),
+    // Any address no route above matches.
+    route('*', 'routes/not-found.tsx'),
   ]),
 ] satisfies RouteConfig;
