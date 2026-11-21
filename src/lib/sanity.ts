@@ -60,7 +60,7 @@ export type ProgramCard = {
   kind: 'ongoing' | 'limited';
   status: 'active' | 'paused' | 'retired';
   shortDescription: string;
-  heroImage?: { url: string };
+  heroImage?: { url: string; hotspot?: { x: number; y: number } };
   /** How many dates are still ahead, so the card can say so without a second query. */
   upcomingCount: number;
 };
@@ -75,7 +75,7 @@ export async function getPrograms(today: string): Promise<ProgramCard[]> {
       | order(name asc) {
         _id, name, kind, status, shortDescription,
         "slug": slug.current,
-        "heroImage": heroImage{"url": asset->url},
+        "heroImage": heroImage{"url": asset->url, hotspot},
         "upcomingCount": count(*[_type == "event" && program._ref == ^._id && date >= $today])
       }`,
     { today }
