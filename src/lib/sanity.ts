@@ -60,7 +60,7 @@ export type ProgramCard = {
   kind: 'ongoing' | 'limited';
   status: 'active' | 'paused' | 'retired';
   shortDescription: string;
-  heroImage?: { url: string };
+  heroImage?: { url: string; hotspot?: { x: number; y: number } };
   /** How many dates are still ahead, so the card can say so without a second query. */
   upcomingCount: number;
 };
@@ -75,7 +75,7 @@ export async function getPrograms(today: string): Promise<ProgramCard[]> {
       | order(name asc) {
         _id, name, kind, status, shortDescription,
         "slug": slug.current,
-        "heroImage": heroImage{"url": asset->url},
+        "heroImage": heroImage{"url": asset->url, hotspot},
         "upcomingCount": count(*[_type == "event" && program._ref == ^._id && date >= $today])
       }`,
     { today }
@@ -273,7 +273,8 @@ export type ArtistWork = {
   title?: string;
   medium?: string;
   credit?: string;
-  image?: { url: string };
+  /** Width and height are the original upload's, in pixels. */
+  image?: { url: string; width: number; height: number };
 };
 
 export type Medium = { name: string; slug: string };
@@ -365,7 +366,14 @@ export async function getArtist(slug: string): Promise<ArtistDetail | null> {
       ${ARTIST_CARD},
       bio,
       links,
-      works[]{_key, title, medium, credit, "image": image{"url": asset->url}}
+      works[]{
+        _key, title, medium, credit,
+        "image": image{
+          "url": asset->url,
+          "width": asset->metadata.dimensions.width,
+          "height": asset->metadata.dimensions.height
+        }
+      }
     }`,
     { slug }
   );
