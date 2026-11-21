@@ -22,7 +22,6 @@ export default [
     route('programs', 'routes/programs.tsx'),
     route('news', 'routes/news.tsx'),
     route('donate', 'routes/donate.tsx'),
-    route('pledge', 'routes/pledge.tsx'),
     route('contact', 'routes/contact.tsx'),
   ]),
 ] satisfies RouteConfig;

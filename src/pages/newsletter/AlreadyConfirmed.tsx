@@ -73,13 +73,14 @@ export default function NewsletterAlreadyConfirmed() {
         <Button
           as={Link}
           to='/'
-          appearance='primary'
+          variant='primary'
+          size='lg'
           iconAfter='finish'
         >
           Back to the site
         </Button>
         {!prefersReducedMotion && (
-          <Button onClick={fireConfetti} appearance='subtle'>
+          <Button onClick={fireConfetti} variant='subtle' size='lg'>
             Celebrate
           </Button>
         )}
