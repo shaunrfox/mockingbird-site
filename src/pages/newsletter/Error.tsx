@@ -72,7 +72,8 @@ export default function NewsletterError() {
       <Button
         as={Link}
         to='/'
-        appearance='primary'
+        variant='primary'
+        size='lg'
         iconAfter='finish'
       >
         Back to the site

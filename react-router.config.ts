@@ -31,7 +31,6 @@ export default {
       '/exhibitions',
       '/news',
       '/donate',
-      '/pledge',
       '/contact',
       // The Worker redirects people to these after a newsletter confirmation,
       // so they are landing pages arrived at cold, not client-side routes.
