@@ -456,3 +456,36 @@ export async function getHomeContent(today: string, limit = 3): Promise<HomeCont
     { today, limit }
   );
 }
+
+/* ------------------------------------------------------------------ *
+ * People (About page)
+ * ------------------------------------------------------------------ */
+
+export type BoardOffice = 'chair' | 'viceChair' | 'secretary' | 'treasurer' | 'director';
+
+export type Person = {
+  _id: string;
+  name: string;
+  staffTitle?: string;
+  boardOffice?: BoardOffice;
+  photo?: { url: string; hotspot?: { x: number; y: number } };
+  bio?: unknown[];
+};
+
+/**
+ * Staff and board, in the order set in the studio. An empty list fails the
+ * build: the About page would otherwise ship with no people on it, which
+ * happens if the site is built before the people are seeded.
+ */
+export async function getPeople(): Promise<Person[]> {
+  const people: Person[] = await sanity.fetch(
+    `*[_type == "person"] | order(order asc, name asc){
+      _id, name, staffTitle, boardOffice, bio,
+      "photo": photo{"url": asset->url, hotspot}
+    }`
+  );
+  if (people.length === 0) {
+    throw new Error('No person documents in Sanity. Run scripts/seed-people.ts in mockingbird-studio first.');
+  }
+  return people;
+}
