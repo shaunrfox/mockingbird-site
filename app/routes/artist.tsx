@@ -58,9 +58,7 @@ export default function Artist({ loaderData }: Route.ComponentProps) {
           <Link to="/artists" className={`${eyebrow} ${link({ underline: false })}`}>
             Artists
           </Link>
-          <Heading as="h1" textStyle="display.md">
-            {artist.name}
-          </Heading>
+          <Heading as="h1">{artist.name}</Heading>
         </VStack>
 
         <Grid
@@ -118,9 +116,7 @@ export default function Artist({ loaderData }: Route.ComponentProps) {
         {works.length ? (
           <VStack alignItems="flex-start" gap="24" width="full">
             <Divider direction="horizontal" />
-            <Heading as="h2" textStyle="heading.md">
-              Work
-            </Heading>
+            <Heading>Work</Heading>
             <WorksGallery works={works} artistName={artist.name} />
           </VStack>
         ) : null}

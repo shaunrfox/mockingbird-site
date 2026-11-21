@@ -46,7 +46,7 @@ const programPhoto = css({
 });
 
 const status = css({
-  textStyle: 'mono.xs',
+  textStyle: 'mono.sm',
   textTransform: 'uppercase',
   color: 'text',
 });
@@ -99,12 +99,8 @@ function ProgramRow({ program: p, photoFirst }: { program: ProgramCard; photoFir
         {photo}
       </Flex>
       <VStack flex="1" alignItems="flex-start" gap="16" maxWidth="[448px]">
-        <Heading as="h3" textStyle="heading.md">
-          {p.name}
-        </Heading>
-        <Text textStyle="body.lg" color="text.subtlest">
-          {p.shortDescription}
-        </Text>
+        <Heading level="h3">{p.name}</Heading>
+        <Text textStyle="body.lg">{p.shortDescription}</Text>
         <Button as={Link} to={`/programs/${p.slug}`} variant="primary" iconAfter="arrow-right">
           {`Explore ${p.name}`}
         </Button>
@@ -120,9 +116,7 @@ export default function Programs({ loaderData }: Route.ComponentProps) {
   return (
     <VStack gap="64" pt="48" width="full">
       <SiteWrapper gap="24" alignItems="flex-start">
-        <Heading as="h1" textStyle="display.md">
-          Good work. Better together.
-        </Heading>
+        <Heading as="h1">Good work. Better together.</Heading>
         <img
           src="/assets/programs-together.jpg"
           alt="Artists working together around a long table covered in paint and paper."
@@ -131,9 +125,7 @@ export default function Programs({ loaderData }: Route.ComponentProps) {
       </SiteWrapper>
 
       <SiteWrapper gap="80" alignItems="flex-start" py="64">
-        <Heading as="h2" textStyle="heading.lg">
-          Find your practice. Find your people.
-        </Heading>
+        <Heading>Find your practice. Find your people.</Heading>
         {programs.length === 0 ? (
           <Text>Nothing listed yet.</Text>
         ) : (
@@ -151,7 +143,7 @@ export default function Programs({ loaderData }: Route.ComponentProps) {
             width="full"
           >
             {/* Dark text on the brand yellow in both modes, like the date badge. */}
-            <Heading as="h2" textStyle="heading.lg" color="neutral.100">
+            <Heading color="neutral.100">
               You don’t have to make it alone.
             </Heading>
             <Button as={Link} to="/contact" variant="primary" size="lg" iconAfter="arrow-right">
