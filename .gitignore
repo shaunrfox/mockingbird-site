@@ -32,3 +32,6 @@ styled-system-studio
 
 ## Generated at build time
 public/events.ics
+
+# Local state from `wrangler dev`
+.wrangler/
