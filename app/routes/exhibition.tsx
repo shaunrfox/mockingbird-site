@@ -4,6 +4,7 @@ import { Flex, VStack } from '@styled-system/jsx';
 import { link } from '@styled-system/recipes';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
 import { RichText } from '../../src/components/RichText';
+import { ContentImage } from '../../src/components/ContentImage';
 import { exhibitionDates } from '../../src/lib/exhibition-format';
 import { eventHref, getExhibition } from '../../src/lib/sanity';
 import type { Route } from './+types/exhibition';
@@ -40,7 +41,7 @@ export default function Exhibition({ loaderData }: Route.ComponentProps) {
         {/* 7 of the 9 exhibitions on the old site have no image, so the page
             has to look finished without one. */}
         {e.heroImage ? (
-          <img src={e.heroImage.url} alt={e.title} loading="lazy" width={960} height={640} />
+          <ContentImage url={e.heroImage.url} alt={e.title} size="hero" />
         ) : null}
 
         {e.venue ? (

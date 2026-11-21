@@ -5,6 +5,7 @@ import { link } from '@styled-system/recipes';
 import { css } from '@styled-system/css';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
 import { RichText } from '../../src/components/RichText';
+import { ContentImage } from '../../src/components/ContentImage';
 import { TagList } from '../../src/components/Tag/Tag';
 import { mediumHref } from '../../src/pages/ArtistsIndex';
 import { getArtist } from '../../src/lib/sanity';
@@ -44,13 +45,7 @@ export default function Artist({ loaderData }: Route.ComponentProps) {
         </Box>
 
         {artist.headshot ? (
-          <img
-            src={artist.headshot.url}
-            alt={artist.name}
-            loading="lazy"
-            width={480}
-            height={480}
-          />
+          <ContentImage url={artist.headshot.url} alt={artist.name} size="portrait" />
         ) : null}
 
         <RichText value={artist.bio} />
@@ -80,13 +75,7 @@ export default function Artist({ loaderData }: Route.ComponentProps) {
                 {artist.works.map((w) => (
                   <Flex key={w._key} flexDir="column" gap="2">
                     {w.image ? (
-                      <img
-                        src={w.image.url}
-                        alt={w.title ?? ''}
-                        loading="lazy"
-                        width={640}
-                        height={480}
-                      />
+                      <ContentImage url={w.image.url} alt={w.title ?? ''} size="work" />
                     ) : null}
                     {w.title ? <Text textStyle="heading.sm">{w.title}</Text> : null}
                     {w.medium ? <Text>{w.medium}</Text> : null}
