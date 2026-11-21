@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "panda codegen --watch & react-router dev",
-    "build": "panda codegen && tsx scripts/build-ics.ts && react-router build && cp build/client/__spa-fallback.html build/client/404.html",
+    "typecheck": "react-router typegen && tsc -b",
+    "build": "panda codegen && npm run typecheck && tsx scripts/build-ics.ts && react-router build && cp build/client/__spa-fallback.html build/client/404.html",
     "panda": "panda codegen",
     "lint": "eslint .",
     "preview": "npx --yes serve build/client",

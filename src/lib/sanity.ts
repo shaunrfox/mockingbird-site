@@ -2,11 +2,15 @@ import { createClient } from '@sanity/client';
 
 // The project id is public — it ships in the browser bundle either way.
 // It lives in .env.local so it is not hardcoded per environment.
+// At build time this runs in Node (react-router.config.ts), where only
+// process.env holds the values. The browser has no process, so read it
+// through globalThis rather than assume it exists.
 const env = (import.meta as unknown as { env?: Record<string, string> }).env;
+const nodeEnv = (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env;
 export const projectId =
-  env?.VITE_SANITY_PROJECT_ID ?? process.env.VITE_SANITY_PROJECT_ID ?? '';
+  env?.VITE_SANITY_PROJECT_ID ?? nodeEnv?.VITE_SANITY_PROJECT_ID ?? '';
 export const dataset =
-  env?.VITE_SANITY_DATASET ?? process.env.VITE_SANITY_DATASET ?? 'production';
+  env?.VITE_SANITY_DATASET ?? nodeEnv?.VITE_SANITY_DATASET ?? 'production';
 
 export const sanity = createClient({
   projectId,

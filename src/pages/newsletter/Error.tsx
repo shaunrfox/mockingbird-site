@@ -39,8 +39,8 @@ export default function NewsletterError() {
       alignItems='center'
       justifyContent='center'
       maxWidth='xl'
-      height='100vh'
-      width='100vw'
+      height='screen'
+      width='screen'
     >
       <Logo
         variant='mockingbird-arts-logotype'
@@ -72,7 +72,6 @@ export default function NewsletterError() {
       <Button
         as={Link}
         to='/'
-        size='large'
         appearance='primary'
         iconAfter='finish'
       >

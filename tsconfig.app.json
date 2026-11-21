@@ -15,11 +15,14 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+    // React Router writes each route's types to .react-router/types, beside
+    // the route's own path. rootDirs lets "./+types/<route>" imports find them.
+    "rootDirs": [".", "./.react-router/types"],
 
     /* Path aliases */
     "baseUrl": ".",
     "paths": {
-      "./*": ["./src/*"],
+      "~/*": ["./src/*"],
       "@styled-system/*": ["./styled-system/*"]
     },
 
@@ -31,5 +34,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "app", ".react-router/types/**/*"]
 }

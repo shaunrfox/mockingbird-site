@@ -29,5 +29,5 @@
       "@styled-system/*": ["./styled-system/*"]
     }
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "react-router.config.ts", "scripts/**/*.ts"]
 }

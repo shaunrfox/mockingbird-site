@@ -38,8 +38,8 @@ export default function NewsletterAlreadyConfirmed() {
       alignItems='center'
       justifyContent='center'
       maxWidth='xl'
-      height='100vh'
-      width='100vw'
+      height='screen'
+      width='screen'
     >
       <Logo
         variant='mockingbird-arts-logotype'
@@ -73,14 +73,13 @@ export default function NewsletterAlreadyConfirmed() {
         <Button
           as={Link}
           to='/'
-          size='large'
           appearance='primary'
           iconAfter='finish'
         >
           Back to the site
         </Button>
         {!prefersReducedMotion && (
-          <Button onClick={fireConfetti} size='large' appearance='subtle'>
+          <Button onClick={fireConfetti} appearance='subtle'>
             Celebrate
           </Button>
         )}
