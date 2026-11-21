@@ -1,12 +1,12 @@
 import { Link } from 'react-router';
-import { Box, Divider, Heading, Text } from '@okshaun/components';
-import { Flex, VStack } from '@styled-system/jsx';
+import { Divider, Heading, Text } from '@okshaun/components';
+import { Flex, Grid, VStack } from '@styled-system/jsx';
 import { link } from '@styled-system/recipes';
 import { css } from '@styled-system/css';
 import { SiteWrapper } from '../../src/components/SiteWrapper';
 import { RichText } from '../../src/components/RichText';
-import { ContentImage } from '../../src/components/ContentImage';
 import { TagList } from '../../src/components/Tag/Tag';
+import { WorksGallery } from '../../src/components/WorksGallery/WorksGallery';
 import { mediumHref } from '../../src/pages/ArtistsIndex';
 import { getArtist } from '../../src/lib/sanity';
 import type { Route } from './+types/artist';
@@ -28,68 +28,102 @@ export function meta({ data }: Route.MetaArgs) {
   ];
 }
 
+const eyebrow = css({
+  textStyle: 'mono.md',
+  textTransform: 'uppercase',
+  letterSpacing: 'widest',
+});
+
+// The photo is shown whole, at its own shape: resized by Sanity, never cropped.
+const headshot = css({
+  display: 'block',
+  width: 'full',
+  height: 'auto',
+  borderRadius: '8',
+});
+
+/**
+ * An artist's page, laid out after the old faithandarts.org artist pages:
+ * the name, then the photo beside the bio, the mediums in a side column, and
+ * the works in a gallery that opens a lightbox.
+ */
 export default function Artist({ loaderData }: Route.ComponentProps) {
   const { artist } = loaderData;
+  const works = artist.works?.filter((w) => w.image) ?? [];
 
   return (
     <SiteWrapper>
-      <VStack alignItems="flex-start" gap="24" py="48">
-        <Box>
-          <Heading as="h1">{artist.name}</Heading>
-          <TagList
-            items={artist.mediums.map((m) => ({ label: m.name, href: mediumHref(m) }))}
-            size="md"
-            aria-label="Mediums"
-            className={css({ mt: '12' })}
-          />
-        </Box>
+      <VStack alignItems="flex-start" gap="48" py="48" width="full">
+        <VStack alignItems="flex-start" gap="4">
+          <Link to="/artists" className={`${eyebrow} ${link({ underline: false })}`}>
+            Artists
+          </Link>
+          <Heading as="h1" textStyle="display.md">
+            {artist.name}
+          </Heading>
+        </VStack>
 
-        {artist.headshot ? (
-          <ContentImage url={artist.headshot.url} alt={artist.name} size="portrait" />
-        ) : null}
+        <Grid
+          gridTemplateColumns={{ base: '1fr', lg: '[minmax(0, 3fr) minmax(0, 1fr)]' }}
+          gap={{ base: '40', lg: '64' }}
+          width="full"
+          alignItems="start"
+        >
+          <Grid
+            gridTemplateColumns={{ base: '1fr', md: artist.headshot ? '[1fr 1fr]' : '1fr' }}
+            gap="32"
+            alignItems="start"
+          >
+            {artist.headshot ? (
+              <img
+                src={`${artist.headshot.url}?w=1200&auto=format`}
+                alt={artist.name}
+                className={headshot}
+              />
+            ) : null}
+            <VStack alignItems="flex-start" gap="16">
+              <RichText value={artist.bio} />
+              {artist.links?.length ? (
+                <Flex flexDir="column" gap="4">
+                  {artist.links.map((l) => (
+                    <a
+                      key={l._key}
+                      href={l.url}
+                      className={link()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {l.label}
+                    </a>
+                  ))}
+                </Flex>
+              ) : null}
+            </VStack>
+          </Grid>
 
-        <RichText value={artist.bio} />
+          {artist.mediums.length ? (
+            <VStack alignItems="flex-start" gap="12">
+              <Text as="h2" className={eyebrow}>
+                Mediums
+              </Text>
+              <TagList
+                items={artist.mediums.map((m) => ({ label: m.name, href: mediumHref(m) }))}
+                size="md"
+                aria-label="Mediums"
+              />
+            </VStack>
+          ) : null}
+        </Grid>
 
-        {artist.links?.length ? (
-          <Flex flexDir="column" gap="2">
-            {artist.links.map((l) => (
-              <a
-                key={l._key}
-                href={l.url}
-                className={link()}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {l.label}
-              </a>
-            ))}
-          </Flex>
-        ) : null}
-
-        {artist.works?.length ? (
-          <>
+        {works.length ? (
+          <VStack alignItems="flex-start" gap="24" width="full">
             <Divider direction="horizontal" />
-            <Box>
-              <Heading as="h2">Work</Heading>
-              <VStack alignItems="flex-start" gap="8">
-                {artist.works.map((w) => (
-                  <Flex key={w._key} flexDir="column" gap="2">
-                    {w.image ? (
-                      <ContentImage url={w.image.url} alt={w.title ?? ''} size="work" />
-                    ) : null}
-                    {w.title ? <Text textStyle="heading.sm">{w.title}</Text> : null}
-                    {w.medium ? <Text>{w.medium}</Text> : null}
-                    {w.credit ? <Text>Photo: {w.credit}</Text> : null}
-                  </Flex>
-                ))}
-              </VStack>
-            </Box>
-          </>
+            <Heading as="h2" textStyle="heading.md">
+              Work
+            </Heading>
+            <WorksGallery works={works} artistName={artist.name} />
+          </VStack>
         ) : null}
-
-        <Link to="/artists" className={link({ underline: false })}>
-          All artists
-        </Link>
       </VStack>
     </SiteWrapper>
   );

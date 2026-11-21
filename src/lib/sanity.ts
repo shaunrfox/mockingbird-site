@@ -273,7 +273,8 @@ export type ArtistWork = {
   title?: string;
   medium?: string;
   credit?: string;
-  image?: { url: string };
+  /** Width and height are the original upload's, in pixels. */
+  image?: { url: string; width: number; height: number };
 };
 
 export type Medium = { name: string; slug: string };
@@ -365,7 +366,14 @@ export async function getArtist(slug: string): Promise<ArtistDetail | null> {
       ${ARTIST_CARD},
       bio,
       links,
-      works[]{_key, title, medium, credit, "image": image{"url": asset->url}}
+      works[]{
+        _key, title, medium, credit,
+        "image": image{
+          "url": asset->url,
+          "width": asset->metadata.dimensions.width,
+          "height": asset->metadata.dimensions.height
+        }
+      }
     }`,
     { slug }
   );
