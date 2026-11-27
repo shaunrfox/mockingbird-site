@@ -51,10 +51,15 @@ export default function ProgramPage({ loaderData }: Route.ComponentProps) {
   return (
     <SiteWrapper>
       <VStack alignItems="flex-start" gap="8" py="12">
-        <Box>
+        <VStack alignItems="flex-start" gap="4">
           <Heading as="h1">{program.name}</Heading>
+          {program.ledBy && (
+            <Text textStyle="body.md" color="text.subtle">
+              with {program.ledBy}
+            </Text>
+          )}
           <Text>{program.shortDescription}</Text>
-        </Box>
+        </VStack>
 
         <RichText value={program.description} />
 

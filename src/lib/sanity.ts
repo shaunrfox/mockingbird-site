@@ -36,6 +36,8 @@ export type Program = {
   name: string;
   slug: string;
   kind: 'ongoing' | 'limited';
+  /** Who leads it, shown as "with …". Empty means no line. */
+  ledBy?: string;
   shortDescription: string;
   description?: unknown[];
   registrationEnabled: boolean;
@@ -59,6 +61,8 @@ export type ProgramCard = {
   slug: string;
   kind: 'ongoing' | 'limited';
   status: 'active' | 'paused' | 'retired';
+  /** Who leads it, shown as "with …". Empty means no line. */
+  ledBy?: string;
   shortDescription: string;
   heroImage?: { url: string; hotspot?: { x: number; y: number } };
   /** How many dates are still ahead, so the card can say so without a second query. */
@@ -73,7 +77,7 @@ export async function getPrograms(today: string): Promise<ProgramCard[]> {
   return sanity.fetch(
     `*[_type == "program" && defined(slug.current) && status != "retired"]
       | order(name asc) {
-        _id, name, kind, status, shortDescription,
+        _id, name, ledBy, kind, status, shortDescription,
         "slug": slug.current,
         "heroImage": heroImage{"url": asset->url, hotspot},
         "upcomingCount": count(*[_type == "event" && program._ref == ^._id && date >= $today])
@@ -96,6 +100,7 @@ export async function getProgram(slug: string, today: string): Promise<Program |
       name,
       "slug": slug.current,
       kind,
+      ledBy,
       shortDescription,
       description,
       "registrationEnabled": coalesce(registration.enabled, false),
@@ -460,7 +465,7 @@ export async function getHomeContent(today: string, limit = 3): Promise<HomeCont
       "featured": *[_type == "program" && featureOnHome == true
                     && status == "active" && defined(slug.current)]
         | order(name asc) {
-          _id, name, kind, status, shortDescription,
+          _id, name, ledBy, kind, status, shortDescription,
           "slug": slug.current,
           "heroImage": heroImage{"url": asset->url},
           "upcomingCount": count(*[_type == "event" && program._ref == ^._id && date >= $today])
