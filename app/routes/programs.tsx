@@ -99,7 +99,15 @@ function ProgramRow({ program: p, photoFirst }: { program: ProgramCard; photoFir
         {photo}
       </Flex>
       <VStack flex="1" alignItems="flex-start" gap="16" maxWidth="[448px]">
-        <Heading level="h3">{p.name}</Heading>
+        {/* The name and who leads it read as one unit, so they sit closer than the rest. */}
+        <VStack alignItems="flex-start" gap="4">
+          <Heading level="h3">{p.name}</Heading>
+          {p.ledBy && (
+            <Text textStyle="body.md" color="text.subtle">
+              with {p.ledBy}
+            </Text>
+          )}
+        </VStack>
         <Text textStyle="body.lg">{p.shortDescription}</Text>
         <Button as={Link} to={`/programs/${p.slug}`} variant="primary" iconAfter="arrow-right">
           {`Explore ${p.name}`}
